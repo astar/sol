@@ -1,0 +1,164 @@
+/* SOL — sdílená kodexová paleta pro všechny simulace.
+   Stejné barvy jako kniha (sablona.typ), aby to drželo pohromadě. */
+
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Mono:wght@400;500&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --paper: #ECE0C8;
+  --ink:   #2A2118;
+  --mut:   #6E5D46;
+  --acc:   #9E3B2E;
+  --verd:  #3F7A5E;
+  --okr:   #B98A2F;
+  --hair:  rgba(42, 33, 24, .30);
+  --tint:  rgba(255, 255, 255, .35);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #17130E;
+    --ink:   #E8DCC4;
+    --mut:   #A0906F;
+    --hair:  rgba(232, 220, 196, .22);
+    --tint:  rgba(255, 255, 255, .05);
+  }
+}
+
+body {
+  font-family: 'EB Garamond', Georgia, serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.55;
+  padding: clamp(1rem, 4vw, 3rem);
+  max-width: 62rem;
+  margin: 0 auto;
+  font-size: clamp(16px, 1.05vw + 14px, 19px);
+}
+
+a { color: var(--acc); }
+
+h1 {
+  font-weight: 500;
+  font-size: clamp(1.7rem, 3.4vw, 2.6rem);
+  line-height: 1.15;
+  margin-bottom: .35rem;
+}
+
+.podtitul {
+  color: var(--mut);
+  font-style: italic;
+  margin-bottom: 2rem;
+}
+
+.zpet {
+  display: inline-block;
+  font-size: .85rem;
+  color: var(--mut);
+  text-decoration: none;
+  margin-bottom: 1.4rem;
+  letter-spacing: .04em;
+}
+.zpet:hover { color: var(--acc); }
+
+/* ── ovládání ─────────────────────────────────────────── */
+.ovladani {
+  display: grid;
+  gap: 1.1rem 1.6rem;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  border: 1px solid var(--hair);
+  background: var(--tint);
+  padding: 1.1rem 1.3rem;
+  margin: 1.5rem 0;
+}
+
+.rada label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: .8rem;
+  font-size: .92rem;
+  margin-bottom: .3rem;
+}
+.rada .hodnota {
+  font-family: 'DM Mono', monospace;
+  font-size: .88rem;
+  color: var(--acc);
+}
+
+input[type=range] {
+  width: 100%;
+  accent-color: var(--acc);
+  cursor: pointer;
+}
+
+button {
+  font-family: inherit;
+  font-size: .9rem;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--hair);
+  padding: .4rem .9rem;
+  cursor: pointer;
+  transition: border-color .15s, color .15s;
+}
+button:hover  { border-color: var(--acc); color: var(--acc); }
+button.aktiv  { border-color: var(--acc); color: var(--acc); background: var(--tint); }
+
+/* ── plátno ───────────────────────────────────────────── */
+canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--hair);
+  background: var(--paper);
+}
+
+/* ── výsledky ─────────────────────────────────────────── */
+.vysledky {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  margin: 1.4rem 0;
+}
+.karta {
+  border: 1px solid var(--hair);
+  padding: .8rem 1rem;
+}
+.karta .cislo {
+  font-family: 'DM Mono', monospace;
+  font-size: 1.7rem;
+  color: var(--acc);
+  line-height: 1.1;
+}
+.karta .popis {
+  font-size: .82rem;
+  color: var(--mut);
+  margin-top: .2rem;
+}
+
+/* ── výkladové bloky ──────────────────────────────────── */
+.aha {
+  border: 1px solid var(--acc);
+  background: var(--tint);
+  padding: 1rem 1.2rem;
+  margin: 1.6rem 0;
+}
+.aha strong { color: var(--acc); }
+
+.poznamka {
+  border-left: 2px solid var(--okr);
+  padding-left: .9rem;
+  color: var(--mut);
+  font-size: .93rem;
+  margin: 1.2rem 0;
+}
+
+.zdroje {
+  border-top: 1px solid var(--hair);
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  font-size: .8rem;
+  color: var(--mut);
+}

@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nakloň dráhu — proč není zatmění každý měsíc | SOL</title>
+<meta name="description" content="Celá vzácnost zatmění Slunce visí na jednom úhlu. Tady si na něj můžeš sáhnout.">
+<link rel="stylesheet" href="../assets/kodex.css">
+</head>
+<body>
+
+<a class="zpet" href="../">← SOL · 100 otázek o Slunci</a>
+
+<h1>Nakloň dráhu</h1>
+<p class="podtitul">Nov je jednou za měsíc. Tak proč není zatmění jednou za měsíc?</p>
+
+<p>Při novu stojí Měsíc mezi Zemí a Sluncem. To je dvanáctkrát do roka.
+Zatmění Slunce je ale jen dvakrát až pětkrát — a úplné vidíš z jednoho místa
+jednou za tři sta let.</p>
+
+<p>Rozdíl dělá <strong>jediný úhel</strong>: dráha Měsíce je vůči rovině dráhy Země
+nakloněná. Táhni za posuvník a uvidíš, o kolik na něm všechno visí.</p>
+
+<div class="ovladani">
+  <div class="rada">
+    <label for="sklon">Sklon dráhy Měsíce
+      <span class="hodnota" id="sklon-v">5,145°</span></label>
+    <input type="range" id="sklon" min="0" max="12" step="0.005" value="5.145">
+  </div>
+  <div class="rada">
+    <label for="uzel">Natočení uzlů
+      <span class="hodnota" id="uzel-v">0°</span></label>
+    <input type="range" id="uzel" min="0" max="360" step="1" value="0">
+  </div>
+  <div class="rada">
+    <label for="roky">Sledované období
+      <span class="hodnota" id="roky-v">6 let</span></label>
+    <input type="range" id="roky" min="2" max="24" step="1" value="6">
+  </div>
+  <div class="rada" style="display:flex;align-items:flex-end;gap:.6rem;flex-wrap:wrap">
+    <button id="skutecnost" class="aktiv">Skutečnost (5,145°)</button>
+    <button id="nula">Nastav 0°</button>
+  </div>
+</div>
+
+<canvas id="platno" width="1100" height="440" aria-label="Dráha Měsíce vůči ekliptice a novy, které minou"></canvas>
+
+<div class="vysledky">
+  <div class="karta"><div class="cislo" id="v-rocne">—</div>
+    <div class="popis">zatmění Slunce ročně</div></div>
+  <div class="karta"><div class="cislo" id="v-uplna">—</div>
+    <div class="popis">z toho centrálních (úplná / prstencová)</div></div>
+  <div class="karta"><div class="cislo" id="v-podil">—</div>
+    <div class="popis">novů, které skončí zatměním</div></div>
+  <div class="karta"><div class="cislo" id="v-cekani">—</div>
+    <div class="popis">průměrná pauza mezi zatměními</div></div>
+</div>
+
+<div class="aha" id="aha">…</div>
+
+<h2 style="font-weight:500;font-size:1.35rem;margin:2.2rem 0 .6rem">Co se to počítá</h2>
+
+<p>Měsíc obíhá tak, že se jeho fáze opakují po <strong>synodickém měsíci</strong>
+(29,5306 dne), ale uzlem prochází po <strong>drakonickém měsíci</strong>
+(27,2122 dne). Ty dva rytmy se rozcházejí — a právě proto novy padají pokaždé
+na jiné místo dráhy.</p>
+
+<p>Pro každý nov spočítáme ekliptikální šířku Měsíce</p>
+
+<p style="font-family:'DM Mono',monospace;font-size:.95rem;text-align:center;margin:1rem 0">
+β = arcsin( sin&nbsp;<em>i</em> · sin&nbsp;θ )</p>
+
+<p>kde <em>i</em> je sklon dráhy a θ úhel od uzlu. Zatmění nastane, když je Měsíc
+dost blízko ekliptice: částečné do <strong>1,4°</strong>, centrální do
+<strong>0,9°</strong>. Uzly se navíc samy otáčejí — celý kruh obejdou zpět
+za 18,6 roku, což je v simulaci započítané.</p>
+
+<div class="poznamka">
+Model počítá s kruhovou dráhou a průměrnými hodnotami, takže dává správný
+<em>počet</em> a správné <em>rytmy</em>, ne konkrétní data. Skutečná zatmění
+se posouvají podle výstřednosti obou drah — proto se v realitě střídají
+úplná a prstencová i uvnitř jedné sarosové řady.
+</div>
+
+<h2 style="font-weight:500;font-size:1.35rem;margin:2.2rem 0 .6rem">Zkus tohle</h2>
+<ul style="padding-left:1.2rem">
+  <li><strong>Nastav 0°</strong> — zatmění je každý nov. Dvanáctkrát do roka,
+      pokaždé, naprosto spolehlivě. A tím pádem úplně obyčejné.</li>
+  <li><strong>Vrať 5,145°</strong> — spadne to na dvě až pět.</li>
+  <li><strong>Táhni na 10°</strong> — zbude zhruba jedno ročně, tedy polovina dneška.
+      Poměr centrálních a částečných se přitom <em>nemění</em>: je daný podílem
+      mezí 0,9° ku 1,4° a na sklonu nezávisí.</li>
+  <li><strong>Nech sklon a táhni uzly</strong> — počet se skoro nemění,
+      mění se jen <em>kdy</em>. Uzly rozhodují o termínu, sklon o vzácnosti.</li>
+</ul>
+
+<div class="zdroje">
+  Sklon dráhy 5,145°, synodický měsíc 29,530589 d, drakonický 27,212221 d,
+  regrese uzlů 18,6 roku. Zatmívací meze podle klasické nebeské mechaniky
+  (Meeus, <em>Astronomical Algorithms</em>).<br>
+  Součást <a href="../">SOL — 100 otázek o Slunci</a>. Kód i text volně k použití.
+</div>
+
+<script>
+const SYN = 29.530589;   // synodický měsíc [d]
+const DRA = 27.212221;   // drakonický měsíc [d]
+const UZLY_OBEH = 6798.4; // regrese uzlů [d] = 18,6 roku
+const MEZ_CAST = 1.40;   // zatmívací mez pro částečné [°]
+const MEZ_CENTR = 0.90;  // pro centrální [°]
+
+const $ = id => document.getElementById(id);
+const platno = $('platno');
+const ctx = platno.getContext('2d');
+
+function barva(nazev) {
+  return getComputedStyle(document.documentElement).getPropertyValue(nazev).trim();
+}
+
+/* ── výpočet ────────────────────────────────────────────────── */
+function spocitej(sklon, uzel0, roky) {
+  const dnu = roky * 365.25;
+  const novy = [];
+  let castecna = 0, centralni = 0;
+
+  for (let k = 0; k * SYN < dnu; k++) {
+    const t = k * SYN;
+    // úhel od uzlu: postup po drakonickém měsíci, mínus vlastní regrese uzlů
+    const theta = 360 * (t / DRA) + uzel0 + 360 * (t / UZLY_OBEH);
+    const rad = theta * Math.PI / 180;
+    const beta = Math.asin(Math.sin(sklon * Math.PI / 180) * Math.sin(rad)) * 180 / Math.PI;
+    const abs = Math.abs(beta);
+    let typ = 'zadne';
+    if (abs < MEZ_CENTR) { typ = 'centralni'; centralni++; castecna++; }
+    else if (abs < MEZ_CAST) { typ = 'castecne'; castecna++; }
+    novy.push({ t, beta, typ });
+  }
+  return { novy, castecna, centralni, roky, dnu };
+}
+
+/* ── kreslení ───────────────────────────────────────────────── */
+const OKNO_DNU = 200;   // horní graf: ~7 měsíců, aby byly vlny čitelné
+
+function nakresli(v, sklon, uzel0) {
+  const W = platno.width, H = platno.height;
+  const ink = barva('--ink'), mut = barva('--mut'), acc = barva('--acc'),
+        okr = barva('--okr'), paper = barva('--paper'), hair = barva('--hair');
+
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = paper; ctx.fillRect(0, 0, W, H);
+
+  const L = 68, R = W - 30, HORNI = 34, DOLNI = 252;
+  const stred = (HORNI + DOLNI) / 2;
+  // svislé měřítko se přizpůsobí sklonu, ať je pás vždy vidět v proporci
+  const rozsah = Math.max(2.2, sklon * 1.28);
+  const skala = (DOLNI - HORNI) / 2 / rozsah;
+
+  const x = t => L + (R - L) * t / OKNO_DNU;
+  const y = b => stred - b * skala;
+  ctx.font = '13px "EB Garamond", Georgia, serif';
+
+  // pás zatmívacích mezí
+  ctx.fillStyle = acc; ctx.globalAlpha = .16;
+  ctx.fillRect(L, y(MEZ_CAST), R - L, y(-MEZ_CAST) - y(MEZ_CAST));
+  ctx.globalAlpha = .3;
+  ctx.fillRect(L, y(MEZ_CENTR), R - L, y(-MEZ_CENTR) - y(MEZ_CENTR));
+  ctx.globalAlpha = 1;
+
+  // ekliptika
+  ctx.strokeStyle = okr; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(L, y(0)); ctx.lineTo(R, y(0)); ctx.stroke();
+
+  // dráha Měsíce
+  ctx.strokeStyle = ink; ctx.lineWidth = 1.6;
+  ctx.beginPath();
+  for (let t = 0; t <= OKNO_DNU; t += 0.25) {
+    const th = (360 * (t / DRA) + uzel0 + 360 * (t / UZLY_OBEH)) * Math.PI / 180;
+    const b = Math.asin(Math.sin(sklon * Math.PI / 180) * Math.sin(th)) * 180 / Math.PI;
+    t === 0 ? ctx.moveTo(x(t), y(b)) : ctx.lineTo(x(t), y(b));
+  }
+  ctx.stroke();
+
+  // novy v okně
+  v.novy.filter(n => n.t <= OKNO_DNU).forEach(n => {
+    const px = x(n.t), py = y(n.beta);
+    if (n.typ !== 'zadne') {          // spojnice k ekliptice = „stín míří sem“
+      ctx.strokeStyle = n.typ === 'centralni' ? acc : okr;
+      ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(px, y(0)); ctx.stroke();
+    }
+    ctx.beginPath();
+    if (n.typ === 'centralni')      { ctx.fillStyle = acc; ctx.arc(px, py, 6.5, 0, 7); }
+    else if (n.typ === 'castecne')  { ctx.fillStyle = okr; ctx.arc(px, py, 5.5, 0, 7); }
+    else { ctx.fillStyle = mut; ctx.globalAlpha = .5; ctx.arc(px, py, 3.5, 0, 7); }
+    ctx.fill(); ctx.globalAlpha = 1;
+  });
+
+  // osa Y
+  ctx.fillStyle = mut; ctx.textAlign = 'right';
+  const horniPopis = rozsah.toFixed(1).replace('.', ',');
+  ctx.fillText('+' + horniPopis + '°', L - 8, y(rozsah) + 12);
+  ctx.fillText('0°', L - 8, y(0) + 4);
+  ctx.fillText('−' + horniPopis + '°', L - 8, y(-rozsah) - 4);
+
+  // popisek pásu — nad graf, mimo dosah křivky
+  ctx.textAlign = 'left';
+  ctx.fillStyle = acc; ctx.globalAlpha = .3;
+  ctx.fillRect(L, 14, 24, 9);
+  ctx.globalAlpha = 1;
+  ctx.fillText('pás, ve kterém stín trefí Zemi (±1,4°; tmavší jádro ±0,9° = centrální)',
+               L + 32, 23);
+
+  ctx.fillStyle = mut;
+  ctx.fillText('sedm měsíců dráhy Měsíce →', L, DOLNI + 26);
+
+  // legenda
+  const leg = [[acc, 'centrální zatmění'], [okr, 'jen částečné'], [mut, 'nov bez zatmění']];
+  let lx = L;
+  leg.forEach(([c, t]) => {
+    ctx.fillStyle = c; ctx.beginPath(); ctx.arc(lx + 5, DOLNI + 52, 5, 0, 7); ctx.fill();
+    ctx.fillStyle = mut; ctx.fillText(t, lx + 16, DOLNI + 57);
+    lx += ctx.measureText(t).width + 46;
+  });
+
+  // ── dolní proužek: zatmívací období ─────────────────────────
+  const PY = DOLNI + 96, PH = 30;
+  ctx.strokeStyle = hair; ctx.lineWidth = 1;
+  ctx.strokeRect(L, PY, R - L, PH);
+  v.novy.forEach(n => {
+    if (n.typ === 'zadne') return;
+    const px = L + (R - L) * n.t / v.dnu;
+    ctx.strokeStyle = n.typ === 'centralni' ? acc : okr;
+    ctx.lineWidth = n.typ === 'centralni' ? 2.5 : 1.2;
+    ctx.beginPath(); ctx.moveTo(px, PY + 2); ctx.lineTo(px, PY + PH - 2); ctx.stroke();
+  });
+  // značky zatmívacích období po 173,3 dne — proti nim se dá rytmus ověřit
+  const SEZONA = 173.31;
+  ctx.strokeStyle = mut; ctx.globalAlpha = .5; ctx.lineWidth = .8;
+  for (let s = 0; s * SEZONA < v.dnu; s++) {
+    const px = L + (R - L) * (s * SEZONA) / v.dnu;
+    ctx.beginPath(); ctx.moveTo(px, PY + PH); ctx.lineTo(px, PY + PH + 6); ctx.stroke();
+  }
+  ctx.globalAlpha = 1;
+  ctx.fillStyle = mut; ctx.textAlign = 'left';
+  ctx.fillText(`všechna zatmění za ${v.roky} let — čárky dole jsou zatmívací období po 173,3 dne`,
+               L, PY + PH + 24);
+}
+
+/* ── běh ────────────────────────────────────────────────────── */
+function prekresli() {
+  const sklon = parseFloat($('sklon').value);
+  const uzel  = parseFloat($('uzel').value);
+  const roky  = parseInt($('roky').value);
+
+  $('sklon-v').textContent = sklon.toFixed(3).replace('.', ',') + '°';
+  $('uzel-v').textContent  = uzel + '°';
+  $('roky-v').textContent  = roky + (roky < 5 ? ' roky' : ' let');
+
+  // statistiku počítáme přes 200 let, ať nekmitá; proužek jen přes zvolené období
+  const stat = spocitej(sklon, uzel, 200);
+  const v = spocitej(sklon, uzel, roky);
+  nakresli(v, sklon, uzel);
+
+  const rocne = stat.castecna / 200;
+  const centRocne = stat.centralni / 200;
+  const podil = 100 * stat.castecna / stat.novy.length;
+
+  $('v-rocne').textContent  = rocne.toFixed(1).replace('.', ',');
+  $('v-uplna').textContent  = centRocne.toFixed(1).replace('.', ',');
+  $('v-podil').textContent  = podil.toFixed(0) + ' %';
+  $('v-cekani').textContent = stat.castecna
+      ? (stat.dnu / stat.castecna / 30.44).toFixed(1).replace('.', ',') + ' měs.'
+      : '—';
+
+  $('skutecnost').classList.toggle('aktiv', Math.abs(sklon - 5.145) < 0.01);
+  $('nula').classList.toggle('aktiv', sklon < 0.01);
+
+  let text;
+  if (sklon < 0.05) {
+    text = '<strong>Sklon nula.</strong> Zatmění je při <em>každém</em> novu — dvanáctkrát do roka, ' +
+      'napořád, bez výjimky. Kdyby byl vesmír takhle zařízený, nepostavili by kvůli zatmění ' +
+      'Stonehenge, nevznikla by z toho žádná pověra a Eddington by na ověření Einsteina ' +
+      'nemusel čekat do roku 1919. Byl by to jev asi tak vzrušující jako úterý.';
+  } else if (sklon < 2) {
+    text = '<strong>Skoro v rovině.</strong> Zatmění je pořád skoro každý měsíc. ' +
+      'Ta „úžasná kosmická shoda“, o které se mluví, je ve skutečnosti otázka ' +
+      'jediného úhlu — a ty ho zrovna držíš v ruce.';
+  } else if (Math.abs(sklon - 5.145) < 0.4) {
+    text = '<strong>Tady bydlíme.</strong> Při skutečném sklonu 5,145° vychází dvě až pět ' +
+      'zatmění Slunce ročně a zhruba každý šestý nov se trefí. Podívej se na dolní proužek: ' +
+      'zatmění nepadají náhodně, ale sedají na čárky dole — na <em>zatmívací období</em>, ' +
+      'která se vracejí po 173,3 dne. Většinou po jednom, občas dvě těsně za sebou. ' +
+      'Přesně tenhle rytmus vyčetli Babyloňané z tabulek, aniž tušili proč.';
+  } else if (sklon < 8) {
+    text = '<strong>Strmější dráha.</strong> Měsíc protíná pás rychleji, takže počet zatmění klesá ' +
+      'a zatmívací období se zkracují — zatmění se shluknou do těsnějších skupinek. ' +
+      'Poměr centrálních k částečným se ale nemění: je daný podílem obou mezí, ' +
+      '0,9° ku 1,4°, a ten na sklonu nezávisí.';
+  } else {
+    text = '<strong>Zatmění se stává raritou.</strong> Při sklonu přes 10° zbude zhruba jedno ročně, ' +
+      'tedy dvakrát méně než dnes. Kdyby Měsíc obíhal takhle, byla by koróna něčím, ' +
+      'co za život uvidí jen menšina lidí — a astronomie by se vyvíjela úplně jinak.';
+  }
+  $('aha').innerHTML = text;
+}
+
+['sklon', 'uzel', 'roky'].forEach(id => $(id).addEventListener('input', prekresli));
+$('skutecnost').addEventListener('click', () => { $('sklon').value = 5.145; prekresli(); });
+$('nula').addEventListener('click',       () => { $('sklon').value = 0;     prekresli(); });
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', prekresli);
+
+prekresli();
+</script>
+</body>
+</html>
