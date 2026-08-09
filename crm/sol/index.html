@@ -82,6 +82,23 @@
   }
   .btn:hover { background: var(--acc); color: var(--paper); }
 
+  /* ── karty klipů ────────────────────────────────── */
+  .klipy { display: grid; gap: 1.4rem; grid-template-columns: repeat(auto-fit,minmax(19rem,1fr)); }
+  a.klip {
+    display: block; text-decoration: none; color: inherit;
+    border: 1px solid var(--hair); overflow: hidden;
+    transition: border-color .15s, transform .15s;
+  }
+  a.klip:hover { border-color: var(--acc); transform: translateY(-2px); }
+  a.klip img { width: 100%; display: block; aspect-ratio: 16/9; object-fit: cover; }
+  a.klip .popis { padding: 1rem 1.2rem 1.3rem; }
+  a.klip .stopaz {
+    font-family:'DMM',monospace; font-size:.78rem; color: var(--acc);
+    letter-spacing:.08em;
+  }
+  a.klip h3 { font-size: 1.45rem; font-weight: 500; margin: .15rem 0 .5rem; }
+  a.klip p { font-size: .93rem; color: var(--mut); }
+
   /* ── video náhledy ──────────────────────────────── */
   .pasy { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit,minmax(15rem,1fr)); margin-top: 1.6rem; }
   .pasy figure { margin: 0; }
@@ -233,29 +250,52 @@
   </figcaption>
 </figure>
 
-<section>
-  <h2>Hudba a videoklipy</h2>
+<section id="klipy">
+  <h2>Tři písně, tři klipy</h2>
   <p class="lead">
-    Tři písně. Vystřihovánková animace z rytin 19. století, montáž na časové ose
-    a skutečné záběry Slunce z dalekohledu DKIST.
+    Vystřihovánka z rytin 19. století, simulace nitra hvězdy a skutečné
+    zatmění. Dohromady deset a půl minuty.
   </p>
-  <div class="pasy">
-    <figure>
+
+  <div class="klipy">
+    <a class="klip" href="https://youtu.be/d6CFCHQXGjw" target="_blank" rel="noopener">
       <img src="img/klip_8.jpg" alt="Fousatý pán u tabule, vystřihovánka z rytin">
-      <figcaption><strong>Uhelný Slunce</strong> — spor 19. století o to,
-        z čeho Slunce žije. Grunge.</figcaption>
-    </figure>
-    <figure>
-      <img src="img/klip_118.jpg" alt="Montáž s běžící časovou osou">
-      <figcaption>Refrén běží na časové ose, kde místo letopočtů
-        stojí soupeřící odhady stáří Slunce.</figcaption>
-    </figure>
-    <figure>
-      <img src="img/klip_176.jpg" alt="Geologické vrstvy a fosilie">
-      <figcaption>Darwin proti Kelvinovi. Vrstvy v zemi
-        potřebovaly stokrát víc času, než jim fyzik dával.</figcaption>
-    </figure>
+      <div class="popis">
+        <span class="stopaz">3:59</span>
+        <h3>Uhelný Slunce</h3>
+        <p>Lord Kelvin spočítal, že chemické Slunce vydrží 3 000 let.
+           Pyramidy jsou starší. Pak se čtyřicet let hádal s Darwinem
+           a prohrál. Grunge a vystřihovánka ze 42 rytin.</p>
+      </div>
+    </a>
+
+    <a class="klip" href="https://youtu.be/4szJ8iusiD8" target="_blank" rel="noopener">
+      <img src="img/th_koule.jpg" alt="Hvězda složená z ohnivých kapek s mrtvým jádrem">
+      <div class="popis">
+        <span class="stopaz">2:57</span>
+        <h3>Do železa zadarmo</h3>
+        <p>Sestup do nitra hvězdy. Kapky se skládají na těžší prvky
+           a při každém složení něco zbyde — až k železu. Tam přestane
+           svítit, protože už není za co.</p>
+      </div>
+    </a>
+
+    <a class="klip" href="https://youtu.be/eBD8T2j0dDA" target="_blank" rel="noopener">
+      <img src="img/th_korona.jpg" alt="Koróna při úplném zatmění Slunce">
+      <div class="popis">
+        <span class="stopaz">3:24</span>
+        <h3>Šest set milionů let</h3>
+        <p>Skutečné zatmění: diamantový prsten, Bailyho zrnka, koróna.
+           Pak rok 1919, kdy se při zatmění poprvé změřilo zakřivení
+           světla. A nakonec Ostrava, kde nic neuvidí.</p>
+      </div>
+    </a>
   </div>
+
+  <p class="lead" style="margin-top:2.2rem">
+    Svislé střihy pro telefon jsou v playlistu
+    <a href="https://www.youtube.com/playlist?list=PLahraADHXThM" target="_blank" rel="noopener">SOL na YouTube</a>.
+  </p>
 </section>
 
 
