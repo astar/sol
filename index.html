@@ -3,125 +3,55 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SOL — 100 otázek o Slunci</title>
-<meta name="description" content="Osm oblastí, osm interaktivních simulací. Slunce od naivní představy po rovnice — a hlavně tam, kde rovnice přestávají platit.">
+<title>Kraviny ze sauny — ceremoniály</title>
+<meta name="description" content="Saunové ceremoniály: věda, pot a sranda. Knihy, interaktivní simulace a hudba.">
 <link rel="stylesheet" href="assets/kodex.css">
 <style>
-  .oblasti { display: grid; gap: 1rem; margin: 2rem 0; }
-  .oblast {
-    border: 1px solid var(--hair);
-    padding: 1.1rem 1.3rem;
-    display: grid;
-    grid-template-columns: 2.2rem 1fr;
-    gap: .3rem 1rem;
-    text-decoration: none;
-    color: inherit;
-    transition: border-color .15s;
+  .hlava { padding: clamp(3rem,10vw,7rem) 0 clamp(2rem,5vw,3.5rem); }
+  .hlava h1 { font-size: clamp(2.4rem,7vw,4.5rem); line-height: .95; font-weight: 500; }
+  .hlava .tag { color: var(--acc); font-style: italic; font-size: 1.15rem; margin-top: .5rem; }
+  .hlava p { color: var(--mut); max-width: 42rem; margin-top: 1.4rem; }
+
+  .crm { display: grid; gap: 1.4rem; grid-template-columns: repeat(auto-fit,minmax(20rem,1fr)); }
+  .polozka {
+    border: 1px solid var(--hair); text-decoration: none; color: inherit;
+    display: block; overflow: hidden; transition: border-color .15s, transform .15s;
   }
-  .oblast:hover { border-color: var(--acc); }
-  .oblast[aria-disabled="true"] { opacity: .55; pointer-events: none; }
-  .pismeno {
-    font-size: 1.6rem; color: var(--acc); line-height: 1;
-    grid-row: 1 / span 3;
-  }
-  .oblast h2 { font-size: 1.15rem; font-weight: 500; margin: 0; }
-  .oblast .sim { color: var(--acc); font-style: italic; font-size: .95rem; }
-  .oblast .aha { border: 0; background: 0; padding: 0; margin: .2rem 0 0;
-                 font-size: .92rem; color: var(--mut); }
-  .stav { font-size: .72rem; letter-spacing: .08em; color: var(--mut);
-          border: 1px solid var(--hair); padding: .1rem .45rem; }
+  a.polozka:hover { border-color: var(--acc); transform: translateY(-2px); }
+  .polozka img { width: 100%; display: block; aspect-ratio: 16/9; object-fit: cover; }
+  .polozka .telo { padding: 1.1rem 1.3rem 1.4rem; }
+  .polozka h2 { font-size: 1.5rem; font-weight: 500; margin-bottom: .2rem; }
+  .polozka .kdy { font-family:'DMM',monospace; font-size:.82rem; color: var(--acc); letter-spacing:.06em; }
+  .polozka p { font-size: .95rem; color: var(--mut); margin-top: .6rem; }
 </style>
 </head>
 <body>
 
-<h1>SOL</h1>
-<p class="podtitul">Sto otázek o Slunci, osm interaktivních simulací —
-a jeden ceremoniál do sauny.</p>
+<div class="hlava">
+  <h1>Kraviny ze sauny</h1>
+  <p class="tag">Věda, pot a sranda</p>
+  <p>Saunové ceremoniály — patnáct minut, tři písně a jedna otázka,
+     na kterou se špatně odpovídá. Ke každému kniha, interaktivní simulace
+     a hudba.</p>
+</div>
 
-<p>Každou otázku vysvětlujeme třikrát: <strong>pro batole</strong> (obraz),
-<strong>pro teenagera</strong> (mechanismus) a <strong>pro Einsteina</strong> (rovnice).
-A pak ještě jednou — <strong>tam, kde ta rovnice přestává platit</strong>.
-Ta čtvrtá vrstva je důvod, proč to není encyklopedie.</p>
-
-<p>Některé odpovědi <span style="color:var(--verd)">známe</span>.
-U některých jsme <span style="color:var(--okr)">názor změnili</span>
-a stálo to za to. A u některých pořád
-<span style="color:var(--acc)">nevíme</span> — což je ta nejzajímavější kategorie.</p>
-
-<div class="oblasti">
-
-  <a class="oblast" href="sim/naklon-drahy.html">
-    <span class="pismeno">G</span>
-    <h2>Geometrie zatmění <span class="stav">HOTOVO</span></h2>
-    <span class="sim">Nakloň dráhu</span>
-    <p class="aha">Nastav sklon na 0° a zatmění je každý nov — dvanáctkrát do roka
-      a naprosto obyčejné. Vrať skutečných 5,145° a spadne to na dvě až pět.
-      Celá vzácnost jevu visí na jednom úhlu.</p>
+<div class="crm">
+  <a class="polozka" href="crm/sol/">
+    <img src="crm/sol/img/hero_papir.jpg" alt="Prohořelý papír, kterým prosvítá Slunce">
+    <div class="telo">
+      <span class="kdy">12. SRPNA 2026</span>
+      <h2>SOL</h2>
+      <p>Ceremoniál k úplnému zatmění Slunce. Sto otázek, osm simulací,
+         tři písně — a spor 19. století o to, z čeho Slunce doopravdy žije.</p>
+    </div>
   </a>
-
-  <div class="oblast" aria-disabled="true">
-    <span class="pismeno">H</span>
-    <h2>Čas <span class="stav">CHYSTÁ SE</span></h2>
-    <span class="sim">Posuň Měsíc v čase</span>
-    <p class="aha">Měsíc se vzdaluje 3,8 cm za rok. Posuň se o 600 milionů let
-      dopředu a měsíční kotouč se scvrkne pod sluneční. Koróna zmizí a už se nevrátí.</p>
-  </div>
-
-  <div class="oblast" aria-disabled="true">
-    <span class="pismeno">C</span>
-    <h2>Jádro <span class="stav">CHYSTÁ SE</span></h2>
-    <span class="sim">Gamowův vrchol</span>
-    <p class="aha">Přepni na klasickou fyziku a počítadlo reakcí spadne na nulu.
-      Ne na málo — na nulu. Slunce svítí jen díky výjimce z pravidel.</p>
-  </div>
-
-  <div class="oblast" aria-disabled="true">
-    <span class="pismeno">D</span>
-    <h2>Poslové <span class="stav">CHYSTÁ SE</span></h2>
-    <span class="sim">Závod: foton versus neutrino</span>
-    <p class="aha">Tři režimy — Slunce, supernova a OPERA. V tom třetím si
-      tahem za posuvník vyrobíš vlastní nobelovskou senzaci. A pak ji zrušíš.</p>
-  </div>
-
-  <div class="oblast" aria-disabled="true">
-    <span class="pismeno">B</span>
-    <h2>Palivo <span class="stav">CHYSTÁ SE</span></h2>
-    <span class="sim">Nakrm Slunce</span>
-    <p class="aha">Vyber palivo a sleduj, jak dlouho Slunce vydrží.
-      Uhelný sloupec je na obrazovce neviditelný.</p>
-  </div>
-
-  <div class="oblast" aria-disabled="true">
-    <span class="pismeno">E</span>
-    <h2>Povrch <span class="stav">CHYSTÁ SE</span></h2>
-    <span class="sim">Kelvin–Helmholtzova nestabilita</span>
-    <p class="aha">Pára nad kamny, vlny od větru, pruhy v mracích a okraj sluneční
-      granule. Čtyři jevy přes devět řádů, jedna rovnice.</p>
-  </div>
-
-  <div class="oblast" aria-disabled="true">
-    <span class="pismeno">A</span>
-    <h2>Měřítko <span class="stav">CHYSTÁ SE</span></h2>
-    <span class="sim">Změř si sluneční soustavu</span>
-    <p class="aha">Aristarchos, přechod Venuše, radar. Táhni úhlem o tři stupně
-      a odpověď se změní dvacetkrát.</p>
-  </div>
-
-  <div class="oblast" aria-disabled="true">
-    <span class="pismeno">F</span>
-    <h2>Magnetismus <span class="stav">CHYSTÁ SE</span></h2>
-    <span class="sim">Namotej dynamo</span>
-    <p class="aha">Skvrny nejsou puchýře. Jsou to vlásenky namotaného pole —
-      a proto se během cyklu stěhují k rovníku.</p>
-  </div>
-
 </div>
 
 <div class="zdroje">
-  Vzniklo jako podklad pro saunový ceremoniál <strong>SOL</strong>
-  k úplnému zatmění Slunce 12. srpna 2026.<br>
-  Data: NASA · ESA · NSF/NSO/AURA (DKIST) · AME2020 · SOHO/MDI.
-  Kód i texty volně k použití.
+  <a href="https://youtube.com/@kravinyzesauny">YouTube</a> ·
+  <a href="https://instagram.com/kravinyzesauny">Instagram</a> ·
+  <a href="https://facebook.com/kravinyzesauny">Facebook</a> ·
+  TikTok @kravinyzesauny
 </div>
 
 </body>

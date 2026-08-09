@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SOL — ceremoniál k zatmění Slunce | Kraviny ze sauny</title>
+<meta name="description" content="Saunový ceremoniál k úplnému zatmění Slunce 12. srpna 2026. Kniha, interaktivní simulace a hudba o tom, z čeho Slunce doopravdy žije.">
+<meta property="og:title" content="SOL — ceremoniál k zatmění Slunce">
+<meta property="og:description" content="Sto otázek o Slunci, osm simulací a tři písně. Kniha, která u každé odpovědi přizná, kde přestává platit.">
+<link rel="stylesheet" href="../../assets/kodex.css">
+<style>
+  body { max-width: none; padding: 0; }
+  .uvnitr { max-width: 62rem; margin: 0 auto; padding: 0 clamp(1rem, 4vw, 3rem); }
+
+  /* ── hrdinský obraz ─────────────────────────────── */
+  .hero {
+    position: relative; min-height: min(84vh, 760px);
+    display: flex; align-items: flex-end;
+    background: #05040a;
+    margin-bottom: 3rem; overflow: hidden;
+  }
+  /* skutečná koróna z totality 2024 — dýchá, protože koróna nikdy nestojí */
+  .hero::before {
+    content:''; position:absolute; inset:-6%;
+    background: url('img/korona2024.jpg') center/cover no-repeat;
+    animation: dychani 26s ease-in-out infinite alternate;
+  }
+  .hero::after {
+    content:''; position:absolute; inset:0;
+    background:
+      radial-gradient(120% 90% at 50% 38%, rgba(255,180,90,.10), transparent 62%),
+      linear-gradient(to bottom, rgba(5,4,10,.30) 0%, rgba(5,4,10,.05) 30%,
+                      rgba(5,4,10,.82) 78%, rgba(13,9,6,.97) 100%);
+  }
+  @keyframes dychani {
+    from { transform: scale(1.00) translateY(0); filter: saturate(1.05) contrast(1.02); }
+    to   { transform: scale(1.07) translateY(-1.2%); filter: saturate(1.18) contrast(1.08); }
+  }
+  .hero-txt { position: relative; z-index: 2; }
+  @media (prefers-reduced-motion: reduce) { .hero::before { animation: none; } }
+  .hero-txt { padding: 0 clamp(1rem,4vw,3rem) clamp(2rem,6vw,4.5rem); max-width: 62rem; margin: 0 auto; width: 100%; }
+  .hero h1 {
+    font-size: clamp(3rem, 11vw, 8rem); line-height: .88; font-weight: 500;
+    letter-spacing: -.02em; color: #F2E6CC; margin-bottom: .4rem;
+  }
+  .hero .pod { font-size: clamp(1.05rem,2.4vw,1.5rem); color: #E0592F; font-style: italic; }
+  .hero .datum {
+    margin-top: 1.6rem; font-family: 'DMM',monospace; font-size: clamp(.85rem,1.6vw,1.05rem);
+    color: #B9A583; letter-spacing: .08em;
+  }
+  .hero .datum b { color: #F2E6CC; }
+
+  section { margin: 4.5rem 0; }
+  h2 { font-size: clamp(1.5rem,3.2vw,2.1rem); font-weight: 500; margin-bottom: .6rem; }
+  .lead { color: var(--mut); font-size: 1.05rem; max-width: 46rem; }
+
+  /* ── karty ──────────────────────────────────────── */
+  .mrizka { display: grid; gap: 1.2rem; margin-top: 1.8rem;
+            grid-template-columns: repeat(auto-fit, minmax(17rem,1fr)); }
+  .karta {
+    border: 1px solid var(--hair); padding: 1.2rem 1.35rem;
+    text-decoration: none; color: inherit; display: block;
+    transition: border-color .15s, transform .15s;
+  }
+  a.karta:hover { border-color: var(--acc); transform: translateY(-2px); }
+  .karta[aria-disabled="true"] { opacity: .5; }
+  .karta h3 { font-size: 1.12rem; font-weight: 500; margin-bottom: .3rem; }
+  .karta .sim { color: var(--acc); font-style: italic; font-size: .95rem; }
+  .karta p { font-size: .93rem; color: var(--mut); margin-top: .45rem; }
+  .stav { font-size: .68rem; letter-spacing: .1em; color: var(--mut);
+          border: 1px solid var(--hair); padding: .1rem .45rem; white-space: nowrap; }
+
+  /* ── kniha ──────────────────────────────────────── */
+  .kniha { display: grid; gap: 2rem; align-items: center;
+           grid-template-columns: minmax(0,1fr) minmax(0,1.3fr); }
+  @media (max-width: 46rem) { .kniha { grid-template-columns: 1fr; } }
+  .kniha img { width: 100%; border: 1px solid var(--hair); }
+  .btn {
+    display: inline-block; margin-top: 1.1rem; padding: .6rem 1.3rem;
+    border: 1px solid var(--acc); color: var(--acc); text-decoration: none;
+    font-size: .95rem; letter-spacing: .03em;
+  }
+  .btn:hover { background: var(--acc); color: var(--paper); }
+
+  /* ── video náhledy ──────────────────────────────── */
+  .pasy { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit,minmax(15rem,1fr)); margin-top: 1.6rem; }
+  .pasy figure { margin: 0; }
+  .pasy img { width: 100%; display: block; border: 1px solid var(--hair); }
+  .pasy figcaption { font-size: .85rem; color: var(--mut); margin-top: .4rem; }
+
+
+  /* ── recenze na potrhaných papírcích ────────────── */
+  .recenze { display: grid; gap: 1.6rem; margin-top: 2rem;
+             grid-template-columns: repeat(auto-fit,minmax(17rem,1fr)); }
+  .papirek {
+    margin: 0; padding: 1.1rem 1.2rem 1rem; position: relative;
+    background: #EFE5CE; color: #2A2118;
+    box-shadow: 0 6px 18px rgba(0,0,0,.35);
+    /* natržené okraje */
+    clip-path: polygon(0% 3%, 4% 0%, 22% 2%, 48% 0%, 71% 3%, 96% 0%, 100% 4%,
+                       99% 28%, 100% 61%, 98% 88%, 100% 97%, 76% 100%, 51% 97%,
+                       27% 100%, 5% 98%, 0% 94%, 1% 63%, 0% 31%);
+  }
+  .papirek p { font-size: 1.02rem; line-height: 1.45; }
+  .papirek.vyderac p { line-height: 2.4; word-spacing: .3em; }
+  .papirek cite {
+    display: block; margin-top: .8rem; font-size: .82rem;
+    color: #6E5D46; font-style: italic;
+  }
+  .recenze-pozn { font-size: .8rem; color: var(--mut); margin-top: 1.4rem; font-style: italic; }
+  .kravka-blok { display: grid; gap: 2rem; align-items: center;
+                 grid-template-columns: minmax(0,260px) minmax(0,1fr); margin-top: 1rem; }
+  @media (max-width: 44rem) { .kravka-blok { grid-template-columns: 1fr; } }
+  .kravka-blok img { width: 100%; border: 1px solid var(--hair); }
+
+  .znacky { display: flex; gap: 1.4rem; flex-wrap: wrap; margin-top: 1rem; font-size: .92rem; }
+  .znacky span::before { content: '■ '; }
+  .vime::before  { color: var(--verd); }
+  .zmena::before { color: var(--okr); }
+  .nevime::before{ color: var(--acc); }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-txt">
+    <h1>SOL</h1>
+    <p class="pod">Ceremoniál k úplnému zatmění Slunce</p>
+    <p class="datum">12. SRPNA 2026 · <b>20:11</b> · Z ČESKA <b>86 %</b> ·
+       PRVNÍ ÚPLNÉ ZATMĚNÍ VIDITELNÉ Z EVROPY OD ROKU 1999</p>
+  </div>
+</header>
+
+<div class="uvnitr">
+
+<section>
+  <h2>O čem to je</h2>
+  <p class="lead">
+    Slunce vyrobí na kilogram své hmoty <strong>0,19 miliwattu</strong>.
+    Ty vyrobíš dva tisíce. Slunce nesvítí proto, že je intenzivní — svítí proto,
+    že je obludně velké.
+  </p>
+  <p class="lead" style="margin-top:1rem">
+    Tenhle ceremoniál je o tom, jak jsme na tohle a podobné věci přišli:
+    o sporu, který trval čtyřicet let, o fyzikovi, který se mýlil,
+    a o náhodě, díky které je zatmění vůbec možné — a která už nikdy
+    nebude tak těsná.
+  </p>
+</section>
+
+<section>
+  <h2>Kniha</h2>
+  <div class="kniha">
+    <img src="img/skvrny.jpg" alt="Chromolitografie slunečních skvrn, E. L. Trouvelot">
+    <div>
+      <p class="lead">
+        <strong>Sto otázek o Slunci.</strong> Každou vysvětlujeme třikrát —
+        pro batole obrazem, pro teenagera mechanismem, pro Einsteina rovnicí.
+        A pak ještě jednou: <strong>kde ta rovnice přestává platit</strong>.
+      </p>
+      <p class="lead" style="margin-top:.9rem">
+        Ta čtvrtá vrstva je jediný důvod, proč to není encyklopedie.
+        Encyklopedie ti řekne odpověď. My ti řekneme i to, kam až sahá.
+      </p>
+      <div class="znacky">
+        <span class="vime">víme</span>
+        <span class="zmena">změnili jsme názor</span>
+        <span class="nevime">nevíme</span>
+      </div>
+      <a class="btn" href="kniha/sol-cast-1-naivni-pohled.pdf">
+        Stáhnout část první — Naivní pohled (PDF, 16 stran)
+      </a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Simulace</h2>
+  <p class="lead">Osm oblastí, osm věcí, na které si můžeš sáhnout.
+     Každá ukazuje něco, co se textem říct nedá.</p>
+  <div class="mrizka">
+
+    <a class="karta" href="sim/naklon-drahy.html">
+      <h3>Geometrie zatmění <span class="stav">HOTOVO</span></h3>
+      <span class="sim">Nakloň dráhu</span>
+      <p>Nastav sklon dráhy Měsíce na 0° a zatmění je každý nov — dvanáctkrát
+         do roka a naprosto obyčejné. Vrať skutečných 5,145° a spadne to na dvě
+         až pět. Celá vzácnost jevu visí na jednom úhlu.</p>
+    </a>
+
+    <div class="karta" aria-disabled="true">
+      <h3>Čas <span class="stav">CHYSTÁ SE</span></h3>
+      <span class="sim">Posuň Měsíc v čase</span>
+      <p>Měsíc se vzdaluje 3,8 cm za rok. Posuň se o 600 milionů let dopředu
+         a koróna zmizí navždy.</p>
+    </div>
+
+    <div class="karta" aria-disabled="true">
+      <h3>Jádro <span class="stav">CHYSTÁ SE</span></h3>
+      <span class="sim">Gamowův vrchol</span>
+      <p>Přepni na klasickou fyziku a počítadlo reakcí spadne na nulu.
+         Ne na málo — na nulu.</p>
+    </div>
+
+    <div class="karta" aria-disabled="true">
+      <h3>Poslové <span class="stav">CHYSTÁ SE</span></h3>
+      <span class="sim">Závod: foton versus neutrino</span>
+      <p>Tahem za posuvník si vyrobíš vlastní nobelovskou senzaci. A pak ji zrušíš.</p>
+    </div>
+
+    <div class="karta" aria-disabled="true">
+      <h3>Palivo <span class="stav">CHYSTÁ SE</span></h3>
+      <span class="sim">Nakrm Slunce</span>
+      <p>Uhelný sloupec je na obrazovce neviditelný.</p>
+    </div>
+
+    <div class="karta" aria-disabled="true">
+      <h3>Povrch <span class="stav">CHYSTÁ SE</span></h3>
+      <span class="sim">Kelvin–Helmholtzova nestabilita</span>
+      <p>Pára nad kamny, vlny od větru, pruhy v mracích a okraj sluneční granule.
+         Čtyři jevy přes devět řádů, jedna rovnice.</p>
+    </div>
+
+  </div>
+</section>
+
+<figure style="margin:4rem 0 0">
+  <img src="img/artemis.jpg" alt="Úplné zatmění Slunce z lodi Orion, Artemis II"
+       style="width:100%;border:1px solid var(--hair)">
+  <figcaption style="font-size:.85rem;color:var(--mut);margin-top:.5rem">
+    Úplné zatmění Slunce viděné z lodi Orion při průletu kolem Měsíce,
+    6. dubna 2026. Totalita tam trvala 54 minut. <em>NASA</em>
+  </figcaption>
+</figure>
+
+<section>
+  <h2>Hudba a videoklipy</h2>
+  <p class="lead">
+    Tři písně. Vystřihovánková animace z rytin 19. století, montáž na časové ose
+    a skutečné záběry Slunce z dalekohledu DKIST.
+  </p>
+  <div class="pasy">
+    <figure>
+      <img src="img/klip_8.jpg" alt="Fousatý pán u tabule, vystřihovánka z rytin">
+      <figcaption><strong>Uhelný Slunce</strong> — spor 19. století o to,
+        z čeho Slunce žije. Grunge.</figcaption>
+    </figure>
+    <figure>
+      <img src="img/klip_118.jpg" alt="Montáž s běžící časovou osou">
+      <figcaption>Refrén běží na časové ose, kde místo letopočtů
+        stojí soupeřící odhady stáří Slunce.</figcaption>
+    </figure>
+    <figure>
+      <img src="img/klip_176.jpg" alt="Geologické vrstvy a fosilie">
+      <figcaption>Darwin proti Kelvinovi. Vrstvy v zemi
+        potřebovaly stokrát víc času, než jim fyzik dával.</figcaption>
+    </figure>
+  </div>
+</section>
+
+
+<section>
+  <h2>Co na to lidi</h2>
+  <p class="lead">Vybráno z knihy návštěv. Při každém načtení stránky jiné.</p>
+  <div class="kravka-blok">
+    <img src="img/kravka.jpg" alt="Maskot Kravin ze sauny — kráva v sauně">
+    <p class="lead">Chodí sem lidi, kterým jsme slíbili saunu — a místo toho
+       dostanou patnáct minut o vazebné energii. Občas si stěžují.
+       A mají pravdu.</p>
+  </div>
+  <div class="recenze" id="recenze"></div>
+  <p class="recenze-pozn">Formuláře na stížnosti se připravují.</p>
+</section>
+
+<section>
+  <h2>Zdroje a kredity</h2>
+  <p class="lead">
+    Snímky zatmění: koróna 2024 — Brucewaters, CC BY 4.0 · Artemis II — NASA · koróna 2017 — Bernd Thaller, CC BY 2.0. Další snímky Slunce: NASA · ESA · ESO (P. Horálek, M. Druckmüller) · NSF / NSO / AURA (Daniel K. Inouye Solar Telescope).
+    Historické rytiny: Wikimedia Commons, Wellcome Collection, Smithsonian Open Access,
+    NYPL Digital Collections — 42 položek s ověřenou licencí a evidencí původu.
+  </p>
+  <p class="lead" style="margin-top:.9rem">
+    Nejnovější objev, na kterém ceremoniál stojí:
+    <a href="https://doi.org/10.1038/s41586-026-10871-3">Kuridze et al.,
+    <em>Ubiquitous Kelvin–Helmholtz instabilities driving plasma mixing on the Sun</em>,
+    Nature (2026)</a> — DKIST rozlišil na Slunci detaily o velikosti 20 km.
+  </p>
+</section>
+
+<div class="zdroje">
+  <strong>Kraviny ze sauny</strong> · Věda, pot a sranda<br>
+  <a href="https://youtube.com/@kravinyzesauny">YouTube</a> ·
+  <a href="https://instagram.com/kravinyzesauny">Instagram</a> ·
+  <a href="https://facebook.com/kravinyzesauny">Facebook</a> ·
+  TikTok @kravinyzesauny
+</div>
+
+</div>
+<script src="recenze.js"></script>
+</body>
+</html>

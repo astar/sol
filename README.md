@@ -1,35 +1,32 @@
-# SOL — 100 otázek o Slunci
-
-Interaktivní simulace ke knize *SOL*, která vznikla jako podklad pro saunový
-ceremoniál k úplnému zatmění Slunce **12. srpna 2026**.
+# Kraviny ze sauny — ceremoniály
 
 **→ [astar.github.io/sol](https://astar.github.io/sol/)**
 
-## Princip
+Struktura: jedna stránka na ceremoniál (CRM).
 
-Každá otázka se vysvětluje třikrát — **batole** (obraz), **teenager** (mechanismus),
-**Einstein** (rovnice) — a pak ještě jednou: **kde ta rovnice přestává platit**.
+```
+/                    rozcestník ceremoniálů
+/crm/sol/            SOL — zatmění 12. 8. 2026
+/crm/sol/sim/        interaktivní simulace
+/crm/sol/kniha/      kniha ke stažení (PDF)
+/assets/kodex.css    sdílený vzhled
+```
 
-Otázky jsou značené podle toho, jak si jsme jistí: *víme* · *změnili jsme názor* · *nevíme*.
+## SOL
 
-## Simulace
+Ceremoniál k úplnému zatmění Slunce 12. srpna 2026.
+Sto otázek, osm simulací, tři písně.
 
-| | Oblast | Simulace | Stav |
-|---|---|---|---|
-| G | Geometrie zatmění | Nakloň dráhu | ✅ |
-| H | Čas | Posuň Měsíc v čase | — |
-| C | Jádro | Gamowův vrchol | — |
-| D | Poslové | Závod: foton versus neutrino | — |
-| B | Palivo | Nakrm Slunce | — |
-| E | Povrch | Kelvin–Helmholtzova nestabilita | — |
-| A | Měřítko | Změř si sluneční soustavu | — |
-| F | Magnetismus | Namotej dynamo | — |
+Každá otázka se vysvětluje třikrát — **batole** (obraz), **teenager**
+(mechanismus), **Einstein** (rovnice) — a pak ještě jednou:
+**kde ta rovnice přestává platit**.
 
 ## Technicky
 
-Statické HTML bez závislostí a bez buildu — vhodné přímo pro GitHub Pages.
-Každá simulace je jeden soubor, sdílí se jen `assets/kodex.css`.
+Statické HTML bez závislostí a bez buildu. Každá simulace je jeden soubor.
 
 ## Licence
 
-Kód i texty volně k použití. Data: NASA · ESA · NSF/NSO/AURA (DKIST) · AME2020 · SOHO/MDI.
+Kód a texty volně k použití. Obrazový materiál má vlastní licence
+uvedené v patičce každé stránky — koróna 2024 (CC BY 4.0), Artemis II (NASA),
+snímky ESO (CC BY 4.0), historické rytiny (public domain / CC BY).
