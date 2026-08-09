@@ -19,6 +19,22 @@ const RECENZE = [
   ["Saunér vysvětloval, proč Slunce nehoří. Přitom bylo vedro jak v peci.", "K. Řehák"],
   ["Nesnáším, když mi někdo v 90 stupních vysvětluje vazebnou energii. A přesto jsem tu zas.", "stálice, 6. sezóna"],
   ["Formuláře na stížnosti prý budou. Zatmění taky prý bude.", "nepodepsáno"],
+
+  // ── ti, co si dělali vlastní výzkum ──────────────────────────────────
+  ["Zatmění je levičácký výmysl.", "Václav, obchodní zástupce"],
+  ["Slunce je taky placatý.", "R. Remek (ne ten kosmonaut)"],
+  ["Nerozuměla jsem ani slovo, uráží mě to!", "Ing. Hanka Králík"],
+  ["Dělal jsem si vlastní výzkum. Nesedí to.", "P. Doležal, 8 let na internetu"],
+  ["Můj názor je přesně tak dobrý jako jejich fakta.", "diskutér"],
+  ["Nesouhlasím s ničím, co tam řekli. Neposlouchal jsem.", "muž u kamen"],
+  ["Prý je Slunce starší než pyramidy. Pyramidy jsem viděl. Nikdo mi nic nedokáže.", "Zbyněk, byl v Egyptě"],
+  ["Konečně někdo řekl, že Kelvin byl vůl!", "nadšený host, nepochopil to"],
+  ["V roce 1999 taky slibovali zatmění. Byl jsem na noční. Podvod.", "směnař, Karviná"],
+  ["Za totality tohle v sauně nebylo.", "pamětník"],
+  ["Byla jsem uražená. Nevím čím. To je ta nejhorší forma.", "H. Procházková"],
+  ["Do sauny chodím vypnout mozek. Tady mi ho zapnuli. Podávám stížnost.", "Ing. Beran"],
+  ["Prý Slunce nehoří. Tak proč mi shořely trenky?", "nepodepsáno, 3. řada"],
+  ["Odmítám vědu, která mi říká, že se pletu.", "svobodný myslitel"],
 ];
 
 // „vyděračský" styl — písmena vystřižená z novin
