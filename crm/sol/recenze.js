@@ -22,7 +22,7 @@ const RECENZE = [
 
   // ── ti, co si dělali vlastní výzkum ──────────────────────────────────
   ["Zatmění je levičácký výmysl.", "Václav, obchodní zástupce"],
-  ["Slunce je taky placatý.", "R. Remek (ne ten kosmonaut)"],
+  ["Slunce je taky placatý.", "V. Remek, kosmonaut"],
   ["Nerozuměla jsem ani slovo, uráží mě to!", "Ing. Hanka Králík"],
   ["Dělal jsem si vlastní výzkum. Nesedí to.", "P. Doležal, 8 let na internetu"],
   ["Můj názor je přesně tak dobrý jako jejich fakta.", "diskutér"],
