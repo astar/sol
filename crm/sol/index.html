@@ -44,6 +44,9 @@
     letter-spacing: -.02em; color: #F2E6CC; margin-bottom: .4rem;
   }
   .hero .pod { font-size: clamp(1.05rem,2.4vw,1.5rem); color: #E0592F; font-style: italic; }
+  /* „skoro" schválně drobně — z Česka je zatmění částečné a je to vtip
+     na náš vlastní účet, ne alibi schované do drobného písma */
+  .hero .pod .skoro { font-size: .58em; letter-spacing: .04em; opacity: .85; }
   .hero .datum {
     margin-top: 1.6rem; font-family: 'DMM',monospace; font-size: clamp(.85rem,1.6vw,1.05rem);
     color: #B9A583; letter-spacing: .08em;
@@ -142,9 +145,11 @@
 <header class="hero">
   <div class="hero-txt">
     <h1>SOL</h1>
-    <p class="pod">Ceremoniál k úplnému zatmění Slunce</p>
-    <p class="datum">12. SRPNA 2026 · <b>20:11</b> · Z ČESKA <b>86 %</b> ·
-       PRVNÍ ÚPLNÉ ZATMĚNÍ VIDITELNÉ Z EVROPY OD ROKU 1999</p>
+    <p class="pod">Ceremoniál k <span class="skoro">skoro</span> úplnému
+       zatmění Slunce</p>
+    <p class="datum">12. SRPNA 2026 · <b>20:11</b> ·
+       ÚPLNÉ NAD ISLANDEM A ŠPANĚLSKEM · Z ČESKA ČÁSTEČNÉ,
+       <b>85,4 – 87,4 %</b> PLOCHY KOTOUČE</p>
   </div>
 </header>
 
@@ -305,7 +310,24 @@
     </a>
   </div>
 
-  <p class="lead" style="margin-top:2.2rem">
+  <p class="lead" style="margin-top:2.4rem;border-left:2px solid var(--acc);padding-left:1rem">
+    <strong>Proč se čísla pro Česko rozcházejí.</strong>
+    Někde čteš 86 %, jinde 89 %, a ani jedno není chyba. Jsou to dvě různé
+    věci: <em>fáze</em> je podíl <strong>průměru</strong> kotouče,
+    <em>zakrytí</em> podíl jeho <strong>plochy</strong>. Fáze u nás vychází
+    0,879 až 0,894, zakrytí 85,4 až 87,4 %. Světla ubere ta plocha, takže
+    uvádíme ji, ale musí se u ní říct, co měří.
+  </p>
+  <p class="lead" style="margin-top:1rem;font-size:.94rem">
+    Spočítali jsme si to sami z Besselových elementů NASA, protože opsat
+    cizí číslo bez toho, aby člověk věděl, co znamená, je přesně ta chyba,
+    o které je celý tenhle ceremoniál. Nejvíc uvidí Vyšší Brod (87,4 %),
+    ale Slunce tam bude 0,3° nad obzorem. Nejlepší kombinaci má Ašsko:
+    86,7 % a Slunce ještě 2,5° vysoko. A <strong>na Moravě nastane maximum
+    pod obzorem</strong>, nejen v Ostravě, ale i v Brně a Olomouci.
+  </p>
+
+  <p class="lead" style="margin-top:2.4rem">
     Jedenáct svislých střihů pro telefon vychází <strong>po jednom
     každý den</strong> — ostravská pointa padne na 12. srpna, dvě hodiny
     před maximem, které tam nastane minutu po západu Slunce.
