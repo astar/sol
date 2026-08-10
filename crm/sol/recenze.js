@@ -1,5 +1,5 @@
 // Recenze na potrhaných papírcích. Při každém načtení jiné tři.
-// Sebeironie je v brand contractu ("uznat vlastní blbost") — tohle je ona.
+// Sebeironie je v brand contractu ("uznat vlastní blbost") – tohle je ona.
 const RECENZE = [
   ["Chtěl jsem se jen v klidu vysaunovat a ne poslouchat nějaký vědecký kraviny.", "Zdeněk M., stálý host"],
   ["Nic nudnějšího jsem ještě nezažila. Kde je peeling?", "Jarmila, permanentka"],
@@ -37,7 +37,7 @@ const RECENZE = [
   ["Odmítám vědu, která mi říká, že se pletu.", "svobodný myslitel"],
 ];
 
-// „vyděračský" styl — písmena vystřižená z novin
+// „vyděračský" styl – písmena vystřižená z novin
 function vyderacsky(text) {
   return text.split("").map(z => {
     if (z === " ") return " ";
@@ -67,7 +67,7 @@ function vyloz() {
     return `<blockquote class="papirek ${rans ? "vyderac" : ""}"
               style="transform:rotate(${rot}deg) translateY(${posun}px)">
               <p>${rans ? vyderacsky(r[0]) : "„" + r[0] + "“"}</p>
-              <cite>— ${r[1]}</cite>
+              <cite>– ${r[1]}</cite>
             </blockquote>`;
   }).join("");
 }
