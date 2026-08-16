@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nakrm Slunce – čím by mohlo svítit a jak dlouho | SOL</title>
+<meta name="description" content="Kelvin dal Slunci tři tisíce let a mýlil se. Vyber palivo a spočítej si, jak dlouho by Slunce vydrželo.">
+<link rel="stylesheet" href="../../../assets/kodex.css">
+</head>
+<body>
+
+<a class="zpet" href="../">← SOL · 100 otázek o Slunci</a>
+
+<h1>Nakrm Slunce</h1>
+<p class="podtitul">Vyber palivo. Zjisti, jestli přežije pyramidy.</p>
+
+<p>V devatenáctém století se vedl spor, který trval čtyřicet let: <strong>z čeho
+Slunce žije?</strong> Nešlo o filozofii. Šlo o dělení. Vezmeš zásobu energie,
+vydělíš ji výkonem a vyjde ti, jak dlouho to může vydržet.</p>
+
+<p>Každý, kdo to zkusil, dostal špatnou odpověď. Ne proto, že by počítal špatně,
+ale proto, že dosadil špatné palivo. Vyber si jedno a podívej se, o kolik řádů
+mine.</p>
+
+<div class="ovladani">
+  <div class="rada">
+    <label for="palivo">Palivo <span class="hodnota" id="palivo-v">chemické – uhlí</span></label>
+    <select id="palivo" style="width:100%;padding:.45rem;font-family:inherit;font-size:1rem">
+      <option value="uhli">Chemické: uhlí (30 MJ/kg)</option>
+      <option value="vodikO2">Chemické: vodík a kyslík (142 MJ/kg)</option>
+      <option value="meteory">Padající meteory (Mayer, 1848)</option>
+      <option value="smrst">Gravitační smršťování (Kelvin, 1862)</option>
+      <option value="fuze" selected>Jaderná fúze (Bethe, 1939)</option>
+      <option value="anihilace">Úplná anihilace hmoty</option>
+    </select>
+  </div>
+  <div class="rada">
+    <label for="hmota">Kolik hmotnosti Slunce je palivo
+      <span class="hodnota" id="hmota-v">10 %</span></label>
+    <input type="range" id="hmota" min="1" max="100" step="1" value="10">
+  </div>
+  <div class="rada">
+    <label for="vykon">Výkon Slunce
+      <span class="hodnota" id="vykon-v">1,00 × dnešní</span></label>
+    <input type="range" id="vykon" min="0.2" max="3" step="0.01" value="1">
+  </div>
+</div>
+
+<canvas id="platno" width="1100" height="420" aria-label="Logaritmická osa času, na které je vidět, jak dlouho by Slunce vydrželo"></canvas>
+
+<div class="vysledky">
+  <div class="karta"><div class="cislo" id="v-doba">–</div>
+    <div class="popis">jak dlouho by Slunce vydrželo</div></div>
+  <div class="karta"><div class="cislo" id="v-energie">–</div>
+    <div class="popis">celková zásoba energie</div></div>
+  <div class="karta"><div class="cislo" id="v-podil">–</div>
+    <div class="popis">podíl hmoty, který se změní na energii</div></div>
+  <div class="karta"><div class="cislo" id="v-verdikt">–</div>
+    <div class="popis">stačí to na Zemi starou 4,54 miliardy let?</div></div>
+</div>
+
+<div class="aha" id="aha">…</div>
+
+<h2 style="font-weight:500;font-size:1.35rem;margin:2.2rem 0 .6rem">Co se to počítá</h2>
+
+<p>Pořád totéž dělení. Zásoba energie je hmotnost paliva krát to, kolik energie
+z kilogramu dostaneš, a doba je zásoba dělená výkonem:</p>
+
+<p style="font-family:'DM Mono',monospace;font-size:.95rem;text-align:center;margin:1rem 0">
+t = ( <em>f</em> · M<sub>☉</sub> · <em>q</em> ) / L<sub>☉</sub></p>
+
+<p>kde <em>f</em> je podíl hmotnosti, který se opravdu spálí, a <em>q</em> výtěžnost
+paliva v joulech na kilogram. Celý spor devatenáctého století byl spor
+o hodnotu <em>q</em>.</p>
+
+<ul style="padding-left:1.2rem">
+  <li><strong>Chemie</strong> pracuje s elektronovými obaly. Jednotky elektronvoltů
+      na reakci, tedy desítky megajoulů na kilogram.</li>
+  <li><strong>Gravitace</strong> dá zhruba <em>GM²/R</em>. Nezávisí na chemii vůbec,
+      jen na tom, jak hluboká je jáma.</li>
+  <li><strong>Meteory</strong> nejsou zásoba, ale přítok. Místo doby se u nich
+      počítá, kolik hmoty by muselo padat, a to je ta vražedná odpověď.</li>
+  <li><strong>Fúze</strong> pracuje s jádry. Miliony elektronvoltů, tedy
+      milionkrát víc než chemie. Přesně 0,7119 % hmotnosti vodíku
+      se změní na energii.</li>
+  <li><strong>Anihilace</strong> je teoretický strop: 100 % hmotnosti.
+      Nikdo neví, jak ji ve velkém provést.</li>
+</ul>
+
+<div class="poznamka">
+Posuvník „kolik hmotnosti je palivo“ je u fúze podstatný. Slunce nespaluje
+celé, jen jádro pod čtvrtinou poloměru, a to je kolem deseti procent hmotnosti.
+Kdo dosadí sto procent, dostane stomiliardový nesmysl. U chemického paliva
+naopak sto procent smysl dává, protože hořet by mohlo celé.
+</div>
+
+<h2 style="font-weight:500;font-size:1.35rem;margin:2.2rem 0 .6rem">Zkus tohle</h2>
+<ul style="padding-left:1.2rem">
+  <li><strong>Uhlí, 100 %</strong> – necelých pět tisíc let. Kelvin uváděl tři
+      tisíce a byl to <em>důkaz sporem</em>, ne předpověď konce světa.
+      Pyramidy stojí déle. Tím padlo chemické Slunce, a padlo dřív, než kdokoli
+      věděl, co je atom.</li>
+  <li><strong>Vodík a kyslík, 100 %</strong> – nejlepší chemie, jakou znáš. Pořád
+      jen dvacet tisíc let. Chemie se z toho nevyhrabe žádnou volbou paliva,
+      protože chybí šest řádů.</li>
+  <li><strong>Smršťování</strong> – třicet milionů let. Tisíckrát lepší než uhlí
+      a pořád stokrát málo. Tohle Kelvin bránil čtyřicet let.</li>
+  <li><strong>Fúze, 10 %</strong> – deset miliard. Sedí. A protože Slunce už čtyři
+      a půl miliardy hoří, je zhruba v půlce.</li>
+  <li><strong>Zvedni výkon na trojnásobek</strong> – doba spadne na třetinu.
+      Jasnější hvězdy žijí kratčeji, a to je důvod, proč se život nevyvinul
+      u modrého obra.</li>
+</ul>
+
+<div class="zdroje">
+  L<sub>☉</sub> = 3,828 · 10<sup>26</sup> W, M<sub>☉</sub> = 1,989 · 10<sup>30</sup> kg,
+  R<sub>☉</sub> = 6,957 · 10<sup>8</sup> m. Výhřevnosti: uhlí 30 MJ/kg,
+  vodík s kyslíkem 142 MJ/kg. Fúze vodíku na hélium 0,7119 % hmotnosti.
+  Stáří Země 4,54 miliardy let (radiometricky).<br>
+  Součást <a href="../">SOL – 100 otázek o Slunci</a>. Kód i text volně k použití.
+</div>
+
+<script>
+const L = 3.828e26, M = 1.98892e30, R = 6.957e8;
+const G = 6.6743e-11, C = 2.99792458e8;
+const ROK = 3.155693e7;
+const ZEME_M = 5.9722e24, ZEME_STARI = 4.54e9;
+
+// q = joulů na kilogram paliva; u smršťování a meteorů se počítá jinak
+const PALIVA = {
+  uhli:     { jm: "chemické – uhlí",        q: 30e6,  vychozi: 100 },
+  vodikO2:  { jm: "chemické – vodík a kyslík", q: 142e6, vychozi: 100 },
+  meteory:  { jm: "padající meteory",       q: null,  vychozi: 100 },
+  smrst:    { jm: "gravitační smršťování",  q: null,  vychozi: 100 },
+  fuze:     { jm: "jaderná fúze",           q: 0.007119 * C * C, vychozi: 10 },
+  anihilace:{ jm: "úplná anihilace",        q: C * C, vychozi: 10 },
+};
+
+// milníky na logaritmické ose [roky, popis]
+const MILNIKY = [
+  [4600, "pyramidy"],
+  [3.0e5, "člověk"],
+  [6.6e7, "vyhynutí dinosaurů"],
+  [3.8e9, "první život"],
+  [ZEME_STARI, "stáří Země"],
+  [1.0e10, "konec Slunce"],
+];
+
+const el = (id) => document.getElementById(id);
+const platno = el("platno"), ctx = platno.getContext("2d");
+
+function spocitej(kod, podil, vykonNasobek) {
+  const p = PALIVA[kod], Lx = L * vykonNasobek, f = podil / 100;
+  let energie, doba, zlomek, pozn;
+
+  if (kod === "smrst") {
+    // Kelvinova-Helmholtzova škála. Faktor 3/10 pro homogenní kouli.
+    energie = 0.3 * G * M * M / R;
+    doba = energie / Lx / ROK;
+    zlomek = energie / (M * C * C);
+    pozn = "Podíl paliva se tu neuplatní: smršťuje se celá hvězda naráz.";
+  } else if (kod === "meteory") {
+    // Není to zásoba, ale přítok. Vrátíme, kolik hmoty musí padat.
+    const eNaKg = G * M / R;
+    const tok = Lx / eNaKg;                  // kg/s
+    energie = null;
+    doba = Infinity;
+    zlomek = null;
+    pozn = "Vydrží to napořád, ale za cenu, kterou nikdo nezaplatí: "
+         + (tok * ROK / ZEME_M * 100).toFixed(2)
+         + " % hmotnosti Země by muselo do Slunce spadnout každý rok. "
+         + "Slunce by měřitelně přibývalo a dráhy planet by se stahovaly.";
+  } else {
+    energie = f * M * p.q;
+    doba = energie / Lx / ROK;
+    zlomek = p.q / (C * C);
+    pozn = null;
+  }
+  return { energie, doba, zlomek, pozn, jm: p.jm };
+}
+
+function cislo(x, des = 2) {
+  return x.toFixed(des).replace(".", ",");
+}
+
+function dobaText(t) {
+  if (!isFinite(t)) return "neomezeně";
+  if (t < 1e4) return cislo(t, 0).replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " let";
+  if (t < 1e6) return cislo(t / 1e3, 1) + " tisíce let";
+  if (t < 1e9) return cislo(t / 1e6, 1) + " milionu let";
+  if (t < 1e12) return cislo(t / 1e9, 2) + " miliardy let";
+  // anihilace dá 1,5 bilionu, a „1479,76 miliardy" se nedá přečíst
+  return cislo(t / 1e12, 2) + " bilionu let";
+}
+
+// „3,34e-8 %" je strojový zápis. V češtině mocnina deseti.
+function procentaText(zlomek) {
+  if (zlomek === null) return "–";
+  const p = zlomek * 100;
+  if (p >= 0.001) return cislo(p, 4) + " %";
+  const exp = Math.floor(Math.log10(p));
+  const mant = p / Math.pow(10, exp);
+  const horni = String(exp).replace("-", "⁻").replace(/\d/g, d => "⁰¹²³⁴⁵⁶⁷⁸⁹"[d]);
+  return cislo(mant, 1) + " · 10" + horni + " %";
+}
+
+function energieText(e) {
+  if (e === null) return "žádná zásoba";
+  // exponent se musí dopočítat, ne zvolit napevno: mezi uhlím a anihilací
+  // je devět řádů a pevné 10^40 dělalo z výsledku „12725,58 · 10⁴⁰"
+  const exp = Math.floor(Math.log10(e));
+  const mant = e / Math.pow(10, exp);
+  const horni = String(exp).replace(/\d/g, d => "⁰¹²³⁴⁵⁶⁷⁸⁹"[d]);
+  return cislo(mant, 2) + " · 10" + horni + " J";
+}
+
+function kresli(v) {
+  const W = platno.width, H = platno.height;
+  ctx.clearRect(0, 0, W, H);
+  const okr = { l: 60, r: 40, t: 30, b: 70 };
+  const sirka = W - okr.l - okr.r;
+  const LOG_MIN = 2, LOG_MAX = 11;      // 100 let až 100 miliard
+  const x = (roky) => okr.l + (Math.log10(roky) - LOG_MIN) / (LOG_MAX - LOG_MIN) * sirka;
+
+  // osa
+  ctx.strokeStyle = "rgba(110,93,70,.5)";
+  ctx.lineWidth = 1;
+  ctx.font = "12px 'DM Mono', monospace";
+  ctx.textAlign = "center";
+  for (let e = LOG_MIN; e <= LOG_MAX; e++) {
+    const xx = x(Math.pow(10, e));
+    ctx.beginPath(); ctx.moveTo(xx, okr.t); ctx.lineTo(xx, H - okr.b); ctx.stroke();
+    ctx.fillStyle = "rgba(110,93,70,.85)";
+    ctx.fillText("10" + String(e).replace(/\d/g, d => "⁰¹²³⁴⁵⁶⁷⁸⁹"[d]), xx, H - okr.b + 20);
+  }
+  ctx.fillStyle = "rgba(110,93,70,.85)";
+  ctx.fillText("roky, logaritmicky", W / 2, H - 14);
+
+  // milníky
+  MILNIKY.forEach(([roky, popis], i) => {
+    const xx = x(roky);
+    ctx.strokeStyle = "rgba(63,122,94,.55)";
+    ctx.setLineDash([3, 4]);
+    ctx.beginPath(); ctx.moveTo(xx, okr.t); ctx.lineTo(xx, H - okr.b); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = "rgba(63,122,94,.95)";
+    ctx.save();
+    ctx.translate(xx + 4, okr.t + 12 + (i % 2) * 18);
+    ctx.textAlign = "left";
+    ctx.font = "12px 'DM Mono', monospace";
+    ctx.fillText(popis, 0, 0);
+    ctx.restore();
+  });
+
+  // sloupec výsledku
+  const y0 = H - okr.b - 74, vys = 44;
+  if (isFinite(v.doba)) {
+    const konec = Math.min(x(Math.max(v.doba, 100)), W - okr.r);
+    const grad = ctx.createLinearGradient(okr.l, 0, konec, 0);
+    grad.addColorStop(0, "rgba(158,59,46,.30)");
+    grad.addColorStop(1, "rgba(158,59,46,.85)");
+    ctx.fillStyle = grad;
+    ctx.fillRect(okr.l, y0, Math.max(2, konec - okr.l), vys);
+    ctx.fillStyle = "#2A2118";
+    ctx.textAlign = konec > W * 0.7 ? "right" : "left";
+    ctx.font = "15px 'EB Garamond', Georgia, serif";
+    ctx.fillText(dobaText(v.doba), konec > W * 0.7 ? konec - 10 : konec + 10, y0 + 28);
+  } else {
+    ctx.fillStyle = "rgba(185,138,47,.75)";
+    ctx.fillRect(okr.l, y0, W - okr.l - okr.r, vys);
+    ctx.fillStyle = "#2A2118";
+    ctx.textAlign = "center";
+    ctx.font = "15px 'EB Garamond', Georgia, serif";
+    ctx.fillText("vydrží napořád, ale za nemožnou cenu", W / 2, y0 + 28);
+  }
+}
+
+function prekresli() {
+  const kod = el("palivo").value;
+  const podil = +el("hmota").value;
+  const vykon = +el("vykon").value;
+
+  el("palivo-v").textContent = PALIVA[kod].jm;
+  el("hmota-v").textContent = podil + " %";
+  el("vykon-v").textContent = cislo(vykon) + " × dnešní";
+
+  const v = spocitej(kod, podil, vykon);
+  el("v-doba").textContent = dobaText(v.doba);
+  el("v-energie").textContent = energieText(v.energie);
+  el("v-podil").textContent = procentaText(v.zlomek);
+
+  const staci = isFinite(v.doba) ? v.doba >= ZEME_STARI : true;
+  el("v-verdikt").textContent = staci ? "ano" : "ne, chybí "
+    + cislo(Math.log10(ZEME_STARI / v.doba), 1) + " řádu";
+
+  let aha;
+  if (v.pozn) {
+    aha = v.pozn;
+  } else if (!staci) {
+    const kolikrat = ZEME_STARI / v.doba;
+    aha = "Země je stará 4,54 miliardy let a v horninách to má zapsané. "
+        + "Tohle palivo by vydrželo " + dobaText(v.doba)
+        + ", tedy " + (kolikrat > 1000 ? Math.round(kolikrat / 1000) + " tisíckrát"
+                                       : Math.round(kolikrat) + "krát")
+        + " méně. Slunce, které zhasne dřív, než vznikne život, je vyloučené. "
+        + "Přesně takhle se v devatenáctém století vylučovala paliva.";
+  } else {
+    aha = "Vydrží to. Slunce hoří 4,57 miliardy let a před sebou má zhruba "
+        + "tolik samo. Tenhle výsledek dal smysl teprve tehdy, když se ukázalo, "
+        + "že jádro váží míň než součet svých částí – a ten rozdíl odlétá jako světlo.";
+  }
+  el("aha").textContent = aha;
+
+  kresli(v);
+}
+
+el("palivo").addEventListener("change", () => {
+  el("hmota").value = PALIVA[el("palivo").value].vychozi;
+  prekresli();
+});
+["hmota", "vykon"].forEach(id => el(id).addEventListener("input", prekresli));
+prekresli();
+</script>
+</body>
+</html>

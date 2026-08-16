@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Závod: foton versus neutrino | SOL</title>
+<meta name="description" content="Obojí vzniklo ve stejném okamžiku ve stejném místě. Jedno je tady za osm minut, druhé za sto tisíc let.">
+<link rel="stylesheet" href="../../../assets/kodex.css">
+</head>
+<body>
+
+<a class="zpet" href="../">← SOL · 100 otázek o Slunci</a>
+
+<h1>Závod: foton versus neutrino</h1>
+<p class="podtitul">Startují ve stejný okamžik ze stejného místa. Jeden dorazí za osm minut, druhý za sto tisíc let.</p>
+
+<p>Při každé fúzi v jádru Slunce vznikne obojí: <strong>energie ve formě záření</strong>
+a <strong>neutrino</strong>. Obě částice mají stejný start a stejnou rychlost.
+Rozdíl je jen v tom, jak často do něčeho narazí.</p>
+
+<p>Neutrino proletí Sluncem, jako by tam nebylo. Záření se plazí ven náhodnou
+procházkou: udělá krok, narazí, změní směr, udělá krok. Táhni za posuvník
+a uvidíš, jak drtivý ten rozdíl je.</p>
+
+<div class="ovladani">
+  <div class="rada">
+    <label for="draha">Střední volná dráha záření
+      <span class="hodnota" id="draha-v">1,0 mm</span></label>
+    <input type="range" id="draha" min="-1" max="3" step="0.02" value="0">
+  </div>
+  <div class="rada">
+    <label for="kroky">Kroků v animaci
+      <span class="hodnota" id="kroky-v">1 200</span></label>
+    <input type="range" id="kroky" min="200" max="4000" step="100" value="1200">
+  </div>
+  <div class="rada" style="display:flex;align-items:flex-end;gap:.6rem;flex-wrap:wrap">
+    <button id="start" class="aktiv">Spustit závod</button>
+    <button id="realne">Reálná hodnota (1 mm)</button>
+  </div>
+</div>
+
+<canvas id="platno" width="1100" height="440" aria-label="Náhodná procházka fotonu proti přímé dráze neutrina"></canvas>
+
+<div class="vysledky">
+  <div class="karta"><div class="cislo" id="v-neutrino">–</div>
+    <div class="popis">neutrino: z jádra na povrch</div></div>
+  <div class="karta"><div class="cislo" id="v-foton">–</div>
+    <div class="popis">záření: z jádra na povrch</div></div>
+  <div class="karta"><div class="cislo" id="v-kroku">–</div>
+    <div class="popis">kolik srážek to stojí</div></div>
+  <div class="karta"><div class="cislo" id="v-pomer">–</div>
+    <div class="popis">kolikrát je neutrino rychlejší</div></div>
+</div>
+
+<div class="aha" id="aha">…</div>
+
+<h2 style="font-weight:500;font-size:1.35rem;margin:2.2rem 0 .6rem">Co se to počítá</h2>
+
+<p>Náhodná procházka má jednu vlastnost, která rozhoduje o všem: po <em>N</em> krocích
+délky <em>λ</em> ses od startu vzdálil ne o <em>Nλ</em>, ale jen o</p>
+
+<p style="font-family:'DM Mono',monospace;font-size:.95rem;text-align:center;margin:1rem 0">
+d = λ · √N</p>
+
+<p>Chceš-li se dostat na vzdálenost <em>R</em>, potřebuješ tedy <em>N</em> = (<em>R</em>/<em>λ</em>)²
+kroků. Ta druhá mocnina je celý vtip. Když je volná dráha milimetr a poloměr
+Slunce sedm set tisíc kilometrů, poměr je 7 · 10<sup>11</sup> a jeho druhá mocnina
+je pět set tisíc triliard.</p>
+
+<p>Celková ušlá dráha je <em>Nλ</em> a doba <em>Nλ/c</em>. Neutrino jde přímo,
+takže mu stačí <em>R/c</em>, tedy 2,3 sekundy.</p>
+
+<div class="poznamka">
+Pozor na obraz, který se běžně říká. <strong>Není to jeden foton, který sto tisíc
+let bloudí ven.</strong> Foton je při každé srážce pohlcen a vyzářen znovu, takže
+ven se plazí <em>energie</em>, ne konkrétní částice. Cestou se navíc drobí:
+z jádra vychází jako rentgen o milionech elektronvoltů a z povrchu odchází
+jako viditelné světlo o jednotkách. Tenhle model počítá difuzní čas, ne osud
+jedné částice. Skutečné hodnoty z modelů Slunce vycházejí na desítky
+až stovky tisíc let podle toho, jak se počítá opacita.
+</div>
+
+<h2 style="font-weight:500;font-size:1.35rem;margin:2.2rem 0 .6rem">Zkus tohle</h2>
+<ul style="padding-left:1.2rem">
+  <li><strong>Nech milimetr</strong> – vyjde řádově sto tisíc let. Světlo,
+      které tě právě hřeje, vzniklo v době, kdy na Zemi ještě nebyl
+      anatomicky moderní člověk.</li>
+  <li><strong>Zvedni volnou dráhu na metr</strong> – doba spadne milionkrát,
+      na desítky dní. Kdyby bylo nitro Slunce průhlednější, vychladlo by
+      a hvězda by se zhroutila. Neprůhlednost je to, co Slunce drží.</li>
+  <li><strong>Sniž na desetinu milimetru</strong> – doba vyskočí stokrát.
+      Druhá mocnina je nemilosrdná v obou směrech.</li>
+  <li>Všimni si, že <strong>neutrino se nemění vůbec</strong>. Jeho čas
+      je 2,3 sekundy bez ohledu na cokoli, protože ono prostě neinteraguje.
+      Proto vidíme jádro Slunce v reálném čase, kdežto ve světle se díváme
+      hluboko do minulosti.</li>
+</ul>
+
+<div class="zdroje">
+  R<sub>☉</sub> = 6,957 · 10<sup>8</sup> m, c = 299 792 458 m/s.
+  Vzdálenost Slunce 1 au = 149 597 870,7 km, tedy 8 minut 19 sekund letu světla.<br>
+  Součást <a href="../">SOL – 100 otázek o Slunci</a>. Kód i text volně k použití.
+</div>
+
+<script>
+const R = 6.957e8, C = 2.99792458e8, AU = 1.495978707e11;
+const ROK = 3.155693e7;
+
+const el = (id) => document.getElementById(id);
+const platno = el("platno"), ctx = platno.getContext("2d");
+let anim = null;
+
+function cislo(x, d = 2) { return x.toFixed(d).replace(".", ","); }
+function mezery(s) { return s.replace(/\B(?=(\d{3})+(?!\d))/g, " "); }
+
+function dobaText(sek) {
+  if (sek < 60) return cislo(sek, 1) + " s";
+  if (sek < 3600) return cislo(sek / 60, 1) + " minuty";
+  if (sek < 86400) return cislo(sek / 3600, 1) + " hodiny";
+  if (sek < ROK) return cislo(sek / 86400, 1) + " dne";
+  const r = sek / ROK;
+  if (r < 1e3) return cislo(r, 1) + " roku";
+  if (r < 1e6) return mezery(Math.round(r).toString()) + " let";
+  return cislo(r / 1e6, 2) + " milionu let";
+}
+
+function velkeCislo(n) {
+  const exp = Math.floor(Math.log10(n));
+  const mant = n / Math.pow(10, exp);
+  const horni = String(exp).replace(/\d/g, d => "⁰¹²³⁴⁵⁶⁷⁸⁹"[d]);
+  return cislo(mant, 1) + " · 10" + horni;
+}
+
+function analyza(lambda_m) {
+  const N = Math.pow(R / lambda_m, 2);
+  const drahaCelkem = N * lambda_m;
+  const tFoton = drahaCelkem / C;
+  const tNeutrino = R / C;
+  return { N, tFoton, tNeutrino, pomer: tFoton / tNeutrino };
+}
+
+// ── animace: náhodná procházka proti přímce ──────────────────────────────
+function spust(kroku) {
+  if (anim) cancelAnimationFrame(anim);
+  const W = platno.width, H = platno.height;
+  const stred = { x: W * 0.30, y: H * 0.5 };
+  const polomer = Math.min(W * 0.24, H * 0.42);
+
+  // foton: náhodná procházka; krok volíme tak, aby při daném počtu
+  // kroků typicky NEdošel ven – přesně to je pointa
+  const krok = polomer / Math.sqrt(kroku) * 0.85;
+  let f = { x: stred.x, y: stred.y }, stopa = [{ ...f }];
+  let n = 0, hotovo = false;
+
+  // neutrino: přímka doprava
+  const nStart = { x: stred.x, y: stred.y };
+  let nx = 0;
+
+  function snimek() {
+    ctx.clearRect(0, 0, W, H);
+
+    // Slunce
+    const g = ctx.createRadialGradient(stred.x, stred.y, polomer * 0.1,
+                                       stred.x, stred.y, polomer);
+    g.addColorStop(0, "rgba(185,138,47,.35)");
+    g.addColorStop(1, "rgba(158,59,46,.10)");
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.arc(stred.x, stred.y, polomer, 0, 7); ctx.fill();
+    ctx.strokeStyle = "rgba(110,93,70,.6)"; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.arc(stred.x, stred.y, polomer, 0, 7); ctx.stroke();
+    ctx.fillStyle = "rgba(110,93,70,.9)";
+    ctx.font = "12px 'DM Mono', monospace"; ctx.textAlign = "center";
+    ctx.fillText("povrch", stred.x, stred.y - polomer - 8);
+
+    // několik kroků na snímek, ať to není nekonečné
+    for (let k = 0; k < 12 && !hotovo; k++) {
+      const u = Math.random() * Math.PI * 2;
+      f.x += Math.cos(u) * krok; f.y += Math.sin(u) * krok;
+      stopa.push({ ...f });
+      n++;
+      if (Math.hypot(f.x - stred.x, f.y - stred.y) > polomer) hotovo = true;
+      if (n >= kroku) hotovo = true;
+    }
+
+    // stopa fotonu
+    ctx.strokeStyle = "rgba(158,59,46,.75)"; ctx.lineWidth = 1;
+    ctx.beginPath();
+    stopa.forEach((p, i) => i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y));
+    ctx.stroke();
+    ctx.fillStyle = "rgba(158,59,46,1)";
+    ctx.beginPath(); ctx.arc(f.x, f.y, 3.5, 0, 7); ctx.fill();
+
+    // neutrino
+    nx = Math.min(nx + polomer / 40, W - stred.x - 30);
+    ctx.strokeStyle = "rgba(63,122,94,.9)"; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(nStart.x, nStart.y - 40);
+    ctx.lineTo(nStart.x + nx, nStart.y - 40); ctx.stroke();
+    ctx.fillStyle = "rgba(63,122,94,1)";
+    ctx.beginPath(); ctx.arc(nStart.x + nx, nStart.y - 40, 4, 0, 7); ctx.fill();
+
+    ctx.textAlign = "left"; ctx.font = "14px 'EB Garamond', Georgia, serif";
+    ctx.fillStyle = "rgba(63,122,94,1)";
+    ctx.fillText("neutrino – přímo ven", stred.x + polomer + 20, stred.y - 44);
+    ctx.fillStyle = "rgba(158,59,46,1)";
+    ctx.fillText("záření – " + mezery(n.toString()) + " srážek a pořád uvnitř",
+                 stred.x + polomer + 20, stred.y - 20);
+
+    if (!hotovo) anim = requestAnimationFrame(snimek);
+    else {
+      ctx.fillStyle = "rgba(110,93,70,.95)";
+      ctx.font = "13px 'EB Garamond', Georgia, serif";
+      const venku = Math.hypot(f.x - stred.x, f.y - stred.y) > polomer;
+      ctx.fillText(venku
+        ? "Tenhle se ven dostal – v modelu s tisícovkou kroků. Ve skutečnosti jich je 10²³."
+        : "Došly kroky. Ve skutečnosti jich záření potřebuje 10²³ a trvá to sto tisíc let.",
+        stred.x + polomer + 20, stred.y + 8);
+    }
+  }
+  snimek();
+}
+
+function prekresli() {
+  const lambda = Math.pow(10, +el("draha").value) * 1e-3;   // metry
+  const kroku = +el("kroky").value;
+  el("draha-v").textContent = lambda >= 1 ? cislo(lambda, 2) + " m"
+                                          : cislo(lambda * 1000, 1) + " mm";
+  el("kroky-v").textContent = mezery(kroku.toString());
+
+  const a = analyza(lambda);
+  el("v-neutrino").textContent = dobaText(a.tNeutrino);
+  el("v-foton").textContent = dobaText(a.tFoton);
+  el("v-kroku").textContent = velkeCislo(a.N) + " srážek";
+  el("v-pomer").textContent = velkeCislo(a.pomer) + "×";
+
+  const let_ = a.tFoton / ROK;
+  el("aha").textContent =
+    "Neutrino je venku za " + dobaText(a.tNeutrino) + " a na Zemi za 8 minut 19 sekund. "
+    + "Záření na tutéž cestu potřebuje " + dobaText(a.tFoton) + ", protože musí "
+    + velkeCislo(a.N) + " krát narazit. "
+    + (let_ > 1e4
+        ? "Sluneční světlo, které tě právě hřeje, tedy nese energii vyrobenou v době, "
+          + "kdy na Zemi ještě nebyla žádná civilizace. Neutrina, která tebou právě "
+          + "prolétla, vznikla před osmi minutami."
+        : "Při téhle průhlednosti by Slunce energii pustilo ven skoro hned – "
+          + "a právě proto by se nedokázalo udržet. Neprůhlednost není vada, je to kotel.");
+}
+
+["draha", "kroky"].forEach(id => el(id).addEventListener("input", prekresli));
+el("start").addEventListener("click", () => spust(+el("kroky").value));
+el("realne").addEventListener("click", () => { el("draha").value = 0; prekresli(); });
+prekresli();
+spust(1200);
+</script>
+</body>
+</html>

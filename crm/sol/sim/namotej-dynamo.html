@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Namotej dynamo – proč má Slunce jedenáctiletý cyklus | SOL</title>
+<meta name="description" content="Rovník Slunce se otáčí rychleji než póly. Namotej na tom magnetické pole a uvidíš, odkud se berou skvrny.">
+<link rel="stylesheet" href="../../../assets/kodex.css">
+</head>
+<body>
+
+<a class="zpet" href="../">← SOL · 100 otázek o Slunci</a>
+
+<h1>Namotej dynamo</h1>
+<p class="podtitul">Slunce nemá jednu rychlost otáčení. A z toho rozdílu vzniká všechno ostatní.</p>
+
+<p>Slunce není těleso, je to plyn, takže se nemusí otáčet jako celek.
+A taky se tak neotáčí: <strong>rovník oběhne za 24,5 dne, póly až za 34.</strong>
+Za rok se tím rovník proti pólům předběhne skoro o celou otáčku.</p>
+
+<p>Magnetické pole je do plazmatu zamrzlé, takže se s ním musí navíjet.
+Táhni za čas a dívej se, jak se z klidného poledníkového pole stane
+namotaný provaz, který někde praskne ven.</p>
+
+<div class="ovladani">
+  <div class="rada">
+    <label for="cas">Čas od začátku cyklu
+      <span class="hodnota" id="cas-v">0,0 roku</span></label>
+    <input type="range" id="cas" min="0" max="11" step="0.05" value="0">
+  </div>
+  <div class="rada">
+    <label for="rozdil">Rozdíl otáčení rovník vs. pól
+      <span class="hodnota" id="rozdil-v">skutečný (24,5 vs. 34 dne)</span></label>
+    <input type="range" id="rozdil" min="0" max="20" step="0.5" value="9.5">
+  </div>
+  <div class="rada" style="display:flex;align-items:flex-end;gap:.6rem;flex-wrap:wrap">
+    <button id="prehraj" class="aktiv">Přehrát cyklus</button>
+    <button id="tuhe">Zkus tuhé otáčení</button>
+  </div>
+</div>
+
+<canvas id="platno" width="1100" height="430" aria-label="Navíjení magnetického pole diferenciální rotací a motýlkový diagram skvrn"></canvas>
+
+<div class="vysledky">
+  <div class="karta"><div class="cislo" id="v-otacky">–</div>
+    <div class="popis">o kolik otáček rovník předběhl pól</div></div>
+  <div class="karta"><div class="cislo" id="v-skvrny">–</div>
+    <div class="popis">relativní počet skvrn</div></div>
+  <div class="karta"><div class="cislo" id="v-sirka">–</div>
+    <div class="popis">zeměpisná šířka, kde skvrny vznikají</div></div>
+  <div class="karta"><div class="cislo" id="v-faze">–</div>
+    <div class="popis">fáze cyklu</div></div>
+</div>
+
+<div class="aha" id="aha">…</div>
+
+<h2 style="font-weight:500;font-size:1.35rem;margin:2.2rem 0 .6rem">Co se to počítá</h2>
+
+<p>Úhlová rychlost otáčení závisí na zeměpisné šířce zhruba jako</p>
+
+<p style="font-family:'DM Mono',monospace;font-size:.95rem;text-align:center;margin:1rem 0">
+Ω(φ) = A − B sin²φ − C sin⁴φ</p>
+
+<p>Za čas <em>t</em> se tedy dvě různé šířky proti sobě natočí o rozdíl úhlů.
+Magnetická siločára, která na začátku vedla podél poledníku, se tím navine
+kolem Slunce a z <em>poloidálního</em> pole (sever – jih) se stane
+<em>toroidální</em> (podél rovnoběžek). To je první polovina dynama.</p>
+
+<p>Druhá polovina je obtížnější a není uzavřená: namotaný svazek musí být
+nějak vrácen zpátky do poloidálního tvaru, jinak by se cyklus nezopakoval.
+Kde přesně se to děje, se pořád zkoumá.</p>
+
+<div class="poznamka">
+Tenhle model kreslí jen tu snadnou půlku, totiž navíjení. Skutečné sluneční
+dynamo je turbulentní magnetohydrodynamický problém a <strong>proč trvá
+zrovna jedenáct let, nikdo pořádně neví.</strong> Předpovědi síly příštího
+cyklu se dodnes navzájem liší dvojnásobně. Motýlkový diagram dole je
+schematický, ne data. Pozorovaný cyklus navíc není symetrický: nástup
+trvá kratší dobu než pokles a jednotlivé cykly se liší.
+</div>
+
+<h2 style="font-weight:500;font-size:1.35rem;margin:2.2rem 0 .6rem">Zkus tohle</h2>
+<ul style="padding-left:1.2rem">
+  <li><strong>Přehraj cyklus</strong> – skvrny začínají ve vyšších šířkách,
+      postupně se stěhují k rovníku a v maximu je jich nejvíc. Tomu se říká
+      Spörerův zákon a ten motýlek je jeden z nejkrásnějších obrázků
+      v celé astronomii.</li>
+  <li><strong>Zkus tuhé otáčení</strong> – pole se nenavine, skvrny nevzniknou
+      a cyklus zmizí. Diferenciální rotace není detail, je to celý motor.</li>
+  <li><strong>Zvedni rozdíl na dvojnásobek</strong> – pole se namotá dvakrát
+      rychleji. Kdyby to byla celá pravda, cyklus by se zkrátil na polovinu.
+      Že to takhle jednoduše nefunguje, je přesně důvod, proč je otázka
+      jedenácti let pořád otevřená.</li>
+</ul>
+
+<div class="zdroje">
+  Perioda rotace: rovník 24,47 dne, 60. rovnoběžka asi 30,9,
+  póly kolem 34 dní (siderická). Sluneční cyklus 11 let, magnetický 22 let,
+  protože po jedenácti letech se pole obrátí a do původního stavu
+  se vrátí až po dvou cyklech.<br>
+  Součást <a href="../">SOL – 100 otázek o Slunci</a>. Kód i text volně k použití.
+</div>
+
+<script>
+const T_ROVNIK = 24.47;    // dní
+const CYKLUS = 11.0;       // let
+const ROK_DNU = 365.25;
+
+const el = (id) => document.getElementById(id);
+const platno = el("platno"), ctx = platno.getContext("2d");
+let anim = null, prehravam = false;
+
+function cislo(x, d = 1) { return x.toFixed(d).replace(".", ","); }
+
+// perioda podle šířky, lineárně mezi rovníkem a pólem podle posuvníku
+function perioda(fi, rozdil) {
+  return T_ROVNIK + rozdil * Math.pow(Math.sin(fi), 2);
+}
+
+function stav(roky, rozdil) {
+  const dnu = roky * ROK_DNU;
+  const otRovnik = dnu / T_ROVNIK;
+  const otPol = dnu / perioda(Math.PI / 2, rozdil);
+  const predbeh = otRovnik - otPol;
+
+  // fáze cyklu: skvrn přibývá zhruba jako sin², maximum ve 4. roce
+  const f = (roky % CYKLUS) / CYKLUS;
+  const skvrny = rozdil < 0.5 ? 0 : Math.pow(Math.sin(Math.PI * f), 1.6);
+  // Spörerův zákon: začíná kolem 30°, končí kolem 8°
+  const sirka = 30 - 22 * f;
+  return { predbeh, skvrny, sirka, f };
+}
+
+function kresli(s, roky, rozdil) {
+  const W = platno.width, H = platno.height;
+  ctx.clearRect(0, 0, W, H);
+
+  // ── vlevo: Slunce se siločárami ────────────────────────────────────────
+  const cx = W * 0.26, cy = H * 0.5, R = Math.min(H * 0.40, 160);
+  ctx.fillStyle = "rgba(185,138,47,.18)";
+  ctx.beginPath(); ctx.arc(cx, cy, R, 0, 7); ctx.fill();
+  ctx.strokeStyle = "rgba(110,93,70,.55)"; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.arc(cx, cy, R, 0, 7); ctx.stroke();
+
+  // siločáry: každá začíná jako poledník a navíjí se podle šířky
+  const N = 9;
+  for (let i = 0; i < N; i++) {
+    const fi0 = -Math.PI / 2 + (i + 0.5) * Math.PI / N;
+    ctx.beginPath();
+    ctx.strokeStyle = "rgba(158,59,46," + (0.35 + 0.5 * Math.abs(Math.sin(fi0))) + ")";
+    ctx.lineWidth = 1.6;
+    for (let k = 0; k <= 60; k++) {
+      const fi = -Math.PI / 2 + k * Math.PI / 60;
+      // navinutí: rozdíl otáček mezi touhle šířkou a rovníkem
+      const dnu = roky * ROK_DNU;
+      const posun = dnu / T_ROVNIK - dnu / perioda(fi, rozdil);
+      const lam = fi0 * 2 + posun * 0.55;
+      const x = cx + R * Math.cos(fi) * Math.sin(lam);
+      const y = cy - R * Math.sin(fi);
+      // kreslíme jen přední polovinu
+      if (Math.cos(lam) > -0.02) {
+        k === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      } else {
+        ctx.moveTo(x, y);
+      }
+    }
+    ctx.stroke();
+  }
+
+  // skvrny na obou polokoulích v dané šířce
+  if (s.skvrny > 0.06) {
+    const pocet = Math.round(s.skvrny * 12);
+    for (let i = 0; i < pocet; i++) {
+      for (const zn of [1, -1]) {
+        const fi = zn * (s.sirka + (Math.random() - 0.5) * 8) * Math.PI / 180;
+        const lam = (Math.random() - 0.5) * 2.2;
+        if (Math.cos(lam) < 0.1) continue;
+        const x = cx + R * Math.cos(fi) * Math.sin(lam);
+        const y = cy - R * Math.sin(fi);
+        ctx.fillStyle = "rgba(42,33,24,.85)";
+        ctx.beginPath();
+        ctx.arc(x, y, 2 + Math.random() * 2.5, 0, 7);
+        ctx.fill();
+      }
+    }
+  }
+
+  ctx.textAlign = "center"; ctx.fillStyle = "rgba(110,93,70,.95)";
+  ctx.font = "12px 'DM Mono', monospace";
+  ctx.fillText("siločáry zamrzlé v plazmatu", cx, cy + R + 24);
+
+  // ── vpravo: motýlkový diagram ──────────────────────────────────────────
+  const ox = W * 0.50, oy = H * 0.16, ow = W * 0.44, oh = H * 0.62;
+  ctx.strokeStyle = "rgba(110,93,70,.5)"; ctx.lineWidth = 1;
+  ctx.strokeRect(ox, oy, ow, oh);
+  ctx.setLineDash([2, 4]);
+  ctx.beginPath(); ctx.moveTo(ox, oy + oh / 2); ctx.lineTo(ox + ow, oy + oh / 2);
+  ctx.stroke(); ctx.setLineDash([]);
+
+  ctx.textAlign = "right"; ctx.font = "11px 'DM Mono', monospace";
+  ctx.fillStyle = "rgba(110,93,70,.9)";
+  ctx.fillText("+40°", ox - 6, oy + 10);
+  ctx.fillText("0°", ox - 6, oy + oh / 2 + 4);
+  ctx.fillText("−40°", ox - 6, oy + oh - 4);
+
+  // dva cykly schematicky, plus značka aktuálního času
+  for (let c = 0; c < 2; c++) {
+    for (let k = 0; k <= 100; k++) {
+      const f = k / 100;
+      const t = (c + f) * CYKLUS;
+      if (t > 22) break;
+      const st = stav(t, rozdil);
+      if (st.skvrny < 0.06) continue;
+      const xx = ox + (t / 22) * ow;
+      for (const zn of [1, -1]) {
+        const yy = oy + oh / 2 - zn * (st.sirka / 40) * (oh / 2);
+        ctx.fillStyle = "rgba(158,59,46," + (0.15 + st.skvrny * 0.55) + ")";
+        ctx.beginPath();
+        ctx.arc(xx, yy, 1.5 + st.skvrny * 3, 0, 7);
+        ctx.fill();
+      }
+    }
+  }
+  const xt = ox + (roky / 22) * ow;
+  ctx.strokeStyle = "rgba(63,122,94,.95)"; ctx.lineWidth = 1.6;
+  ctx.beginPath(); ctx.moveTo(xt, oy); ctx.lineTo(xt, oy + oh); ctx.stroke();
+
+  ctx.textAlign = "center"; ctx.fillStyle = "rgba(110,93,70,.95)";
+  ctx.font = "12px 'DM Mono', monospace";
+  ctx.fillText("motýlkový diagram – kde na Slunci skvrny vznikají",
+               ox + ow / 2, oy + oh + 22);
+  ctx.fillText("0 let", ox, oy + oh + 40);
+  ctx.fillText("22 let (celý magnetický cyklus)", ox + ow - 60, oy + oh + 40);
+}
+
+function prekresli() {
+  const roky = +el("cas").value, rozdil = +el("rozdil").value;
+  el("cas-v").textContent = cislo(roky) + " roku";
+  el("rozdil-v").textContent = rozdil < 0.5 ? "žádný – tuhé otáčení"
+    : (Math.abs(rozdil - 9.5) < 0.3 ? "skutečný (24,5 vs. 34 dne)"
+       : "24,5 vs. " + cislo(T_ROVNIK + rozdil) + " dne");
+
+  const s = stav(roky, rozdil);
+  el("v-otacky").textContent = cislo(s.predbeh, 1) + "×";
+  el("v-skvrny").textContent = rozdil < 0.5 ? "žádné"
+    : Math.round(s.skvrny * 100) + " %";
+  el("v-sirka").textContent = s.skvrny < 0.06 ? "–" : "±" + cislo(s.sirka, 0) + "°";
+  el("v-faze").textContent = s.f < 0.15 ? "začátek" : s.f < 0.55 ? "maximum"
+    : s.f < 0.9 ? "pokles" : "minimum";
+
+  el("aha").textContent = rozdil < 0.5
+    ? "Bez rozdílu v otáčení se pole nenavine, skvrny nevzniknou a cyklus "
+      + "neexistuje. Slunce by bylo magneticky nudné, nebyly by erupce, "
+      + "sluneční vítr by byl jiný a polární záře by možná nebyly vůbec."
+    : "Za " + cislo(roky, 1) + " roku předběhl rovník póly o "
+      + cislo(s.predbeh, 1) + " otáček. Pole je do plazmatu zamrzlé, "
+      + "takže se s ním navíjí, a když je svazek dost silný, protlačí se "
+      + "ven a udělá pár skvrn. Ty vznikají ve stále nižších šířkách, "
+      + "právě teď kolem ±" + cislo(s.sirka, 0)
+      + "°, a z toho je ten motýlek vpravo.";
+
+  kresli(s, roky, rozdil);
+}
+
+["cas", "rozdil"].forEach(id => el(id).addEventListener("input", prekresli));
+el("tuhe").addEventListener("click", () => { el("rozdil").value = 0; prekresli(); });
+el("prehraj").addEventListener("click", () => {
+  if (prehravam) { cancelAnimationFrame(anim); prehravam = false; return; }
+  prehravam = true;
+  let t = 0;
+  const krok = () => {
+    t += 0.035;
+    if (t > 11) { t = 0; }
+    el("cas").value = t;
+    prekresli();
+    if (prehravam) anim = requestAnimationFrame(krok);
+  };
+  krok();
+});
+prekresli();
+</script>
+</body>
+</html>

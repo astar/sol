@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Změř si sluneční soustavu – tyčí, stínem a trpělivostí | SOL</title>
+<meta name="description" content="Od tyče zapíchnuté v Egyptě k hmotnosti Slunce. Čtyři kroky, každý postavený na tom předchozím.">
+<link rel="stylesheet" href="../../../assets/kodex.css">
+</head>
+<body>
+
+<a class="zpet" href="../">← SOL · 100 otázek o Slunci</a>
+
+<h1>Změř si sluneční soustavu</h1>
+<p class="podtitul">Čtyři kroky od tyče ve stínu k hmotnosti Slunce. Každý stojí na tom předchozím.</p>
+
+<p>Nikdo na Slunce nedosáhl a nikdo ho nezvážil. Přesto víme, jak je velké
+i kolik váží, a víme to na několik platných číslic. Celé to visí na řetězu
+měření, ve kterém každý článek potřebuje ten před sebou.</p>
+
+<p>Tady si ten řetěz můžeš projít a hlavně si ho můžeš <strong>rozbít</strong>:
+posuň kterýkoli článek a uvidíš, jak se chyba propíše až na konec.</p>
+
+<div class="ovladani">
+  <div class="rada">
+    <label for="uhel">1. Eratosthenés: úhel stínu v Alexandrii
+      <span class="hodnota" id="uhel-v">7,20°</span></label>
+    <input type="range" id="uhel" min="4" max="11" step="0.01" value="7.2">
+  </div>
+  <div class="rada">
+    <label for="stadion">Vzdálenost Alexandrie – Syéné
+      <span class="hodnota" id="stadion-v">5 000 stadií = 800 km</span></label>
+    <input type="range" id="stadion" min="600" max="1000" step="5" value="800">
+  </div>
+  <div class="rada">
+    <label for="parVenuse">2. Paralaxa z přechodu Venuše
+      <span class="hodnota" id="par-v">8,794″</span></label>
+    <input type="range" id="parVenuse" min="6" max="12" step="0.001" value="8.794">
+  </div>
+  <div class="rada">
+    <label for="uhelSlunce">3. Úhlový průměr Slunce
+      <span class="hodnota" id="uhelS-v">31,98′</span></label>
+    <input type="range" id="uhelSlunce" min="25" max="40" step="0.01" value="31.98">
+  </div>
+  <div class="rada" style="display:flex;align-items:flex-end;gap:.6rem;flex-wrap:wrap">
+    <button id="reset" class="aktiv">Skutečné hodnoty</button>
+    <button id="cassini">Cassini 1672 (9,5″)</button>
+  </div>
+</div>
+
+<canvas id="platno" width="1100" height="330" aria-label="Řetěz čtyř měření a jak se v něm šíří chyba"></canvas>
+
+<div class="vysledky">
+  <div class="karta"><div class="cislo" id="v-zeme">–</div>
+    <div class="popis">obvod Země</div></div>
+  <div class="karta"><div class="cislo" id="v-au">–</div>
+    <div class="popis">vzdálenost Slunce</div></div>
+  <div class="karta"><div class="cislo" id="v-prumer">–</div>
+    <div class="popis">průměr Slunce</div></div>
+  <div class="karta"><div class="cislo" id="v-hmota">–</div>
+    <div class="popis">hmotnost Slunce</div></div>
+</div>
+
+<div class="aha" id="aha">…</div>
+
+<h2 style="font-weight:500;font-size:1.35rem;margin:2.2rem 0 .6rem">Co se to počítá</h2>
+
+<p><strong>1. Obvod Země.</strong> Ve dvou městech na stejném poledníku svírají
+sluneční paprsky v tutéž chvíli různý úhel. Ten rozdíl je stejný podíl kruhu
+jako vzdálenost měst z obvodu:</p>
+
+<p style="font-family:'DM Mono',monospace;font-size:.95rem;text-align:center;margin:.8rem 0">
+O = d · 360° / α</p>
+
+<p><strong>2. Vzdálenost Slunce.</strong> Sluneční paralaxa je úhel, pod kterým
+by ze Slunce byl vidět poloměr Země. Když ho znáš a znáš poloměr, máš vzdálenost:</p>
+
+<p style="font-family:'DM Mono',monospace;font-size:.95rem;text-align:center;margin:.8rem 0">
+1 au = R<sub>Z</sub> / tg π<sub>☉</sub></p>
+
+<p><strong>3. Průměr Slunce.</strong> Úhel krát vzdálenost:</p>
+
+<p style="font-family:'DM Mono',monospace;font-size:.95rem;text-align:center;margin:.8rem 0">
+D = 2 · d · tg(θ/2)</p>
+
+<p><strong>4. Hmotnost Slunce.</strong> Ze třetího Keplerova zákona, kde vystupuje
+třetí mocnina vzdálenosti. A právě proto je poslední článek nejcitlivější:</p>
+
+<p style="font-family:'DM Mono',monospace;font-size:.95rem;text-align:center;margin:.8rem 0">
+M = 4π² a³ / (G T²)</p>
+
+<div class="poznamka">
+Historicky to takhle přímočaré nebylo. Eratosthenés měřil ve stadiích a dodnes
+se neví, jak dlouhé stadion používal, takže jeho slavná přesnost může být částečně
+náhoda. Aristarchos zvolil správnou metodu, ale úhel mezi Sluncem a Měsícem v první
+čtvrti změřil na 87° místo 89,85°, a proto mu Slunce vyšlo dvacetkrát blíž, než je.
+Nešlo o hloupost, šlo o to, že ten úhel se okem změřit nedá. Paralaxu z přechodu
+Venuše navrhl Halley v roce 1716, padesát let před přechodem, kterého se sám nedožil.
+</div>
+
+<h2 style="font-weight:500;font-size:1.35rem;margin:2.2rem 0 .6rem">Zkus tohle</h2>
+<ul style="padding-left:1.2rem">
+  <li><strong>Zmenši paralaxu o pět procent</strong> – vzdálenost naroste o pět,
+      průměr taky o pět, ale hmotnost o šestnáct. Třetí mocnina zesiluje chybu
+      víc než trojnásobně a to je důvod, proč se astronomové o paralaxu
+      tak úporně přeli.</li>
+  <li><strong>Cassini 1672</strong> – první rozumné měření vůbec, z paralaxy
+      Marsu. Vyšlo 9,5″ místo 8,794″, tedy Slunce o osm procent blíž
+      a hmotnost o čtvrtinu menší. Na sedmnácté století úctyhodné.</li>
+  <li><strong>Aristarchos</strong> se do posuvníku nevejde: jeho úhel 87°
+      místo 89,85° dává Slunce dvacetkrát blíž, tedy paralaxu 176″.
+      Metoda byla naprosto správná, jen ten úhel se okem změřit nedá.
+      To je poučnější než jakákoli chyba ve vzorci.</li>
+  <li><strong>Zkus úhel stínu 5°</strong> – Země vyroste o polovinu a s ní
+      úplně všechno ostatní. První článek nese celý řetěz.</li>
+</ul>
+
+<div class="zdroje">
+  Skutečné hodnoty: obvod Země 40 075 km, 1 au = 149 597 870,7 km,
+  sluneční paralaxa 8,794″, úhlový průměr Slunce 31′59″,
+  hmotnost Slunce 1,989 · 10<sup>30</sup> kg.<br>
+  Součást <a href="../">SOL – 100 otázek o Slunci</a>. Kód i text volně k použití.
+</div>
+
+<script>
+const G = 6.6743e-11, ROK = 3.155693e7;
+const SKUTECNE = { obvod: 40075, au: 1.495978707e8, prumer: 1.3927e6, M: 1.9885e30 };
+
+const el = (id) => document.getElementById(id);
+const platno = el("platno"), ctx = platno.getContext("2d");
+
+function cislo(x, d = 2) { return x.toFixed(d).replace(".", ","); }
+function mezery(s) { return String(s).replace(/\B(?=(\d{3})+(?!\d))/g, " "); }
+
+function retez() {
+  const alfa = +el("uhel").value;            // stupně
+  const d = +el("stadion").value;            // km
+  const par = +el("parVenuse").value;        // úhlové vteřiny
+  const theta = +el("uhelSlunce").value;     // úhlové minuty
+
+  const obvod = d * 360 / alfa;                       // km
+  const Rz = obvod / (2 * Math.PI);                   // km
+  const au = Rz / Math.tan(par / 3600 * Math.PI / 180); // km
+  const prumer = 2 * au * Math.tan(theta / 60 / 2 * Math.PI / 180); // km
+  const a = au * 1000;                                // m
+  const M = 4 * Math.PI * Math.PI * a * a * a / (G * ROK * ROK);
+  return { obvod, Rz, au, prumer, M };
+}
+
+function kresli(r) {
+  const W = platno.width, H = platno.height;
+  ctx.clearRect(0, 0, W, H);
+  const kroky = [
+    { jm: "obvod Země", v: r.obvod, sk: SKUTECNE.obvod },
+    { jm: "1 au", v: r.au, sk: SKUTECNE.au },
+    { jm: "průměr Slunce", v: r.prumer, sk: SKUTECNE.prumer },
+    { jm: "hmotnost Slunce", v: r.M, sk: SKUTECNE.M },
+  ];
+  const sirka = (W - 120) / kroky.length;
+  kroky.forEach((k, i) => {
+    const x = 60 + i * sirka, stred = x + sirka / 2;
+    const chyba = k.v / k.sk;
+    const odchylka = Math.abs(chyba - 1) * 100;
+
+    // článek řetězu jako kruh, jehož velikost ukazuje odchylku
+    const rr = 26 + Math.min(30, Math.log10(Math.max(chyba, 1 / chyba)) * 60);
+    const zelena = odchylka < 3, zluta = odchylka < 25;
+    ctx.fillStyle = zelena ? "rgba(63,122,94,.30)"
+                  : zluta ? "rgba(185,138,47,.30)" : "rgba(158,59,46,.32)";
+    ctx.beginPath(); ctx.arc(stred, H * 0.42, rr, 0, 7); ctx.fill();
+    ctx.strokeStyle = zelena ? "rgba(63,122,94,.9)"
+                    : zluta ? "rgba(185,138,47,.9)" : "rgba(158,59,46,.95)";
+    ctx.lineWidth = 1.6;
+    ctx.beginPath(); ctx.arc(stred, H * 0.42, rr, 0, 7); ctx.stroke();
+
+    // spojnice
+    if (i) {
+      ctx.strokeStyle = "rgba(110,93,70,.55)"; ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(stred - sirka + rr + 4, H * 0.42);
+      ctx.lineTo(stred - rr - 4, H * 0.42);
+      ctx.stroke();
+    }
+
+    ctx.textAlign = "center";
+    ctx.fillStyle = "rgba(110,93,70,.95)";
+    ctx.font = "13px 'EB Garamond', Georgia, serif";
+    ctx.fillText(k.jm, stred, H * 0.42 + rr + 22);
+    ctx.font = "13px 'DM Mono', monospace";
+    ctx.fillStyle = zelena ? "rgba(63,122,94,1)"
+                  : zluta ? "rgba(185,138,47,1)" : "rgba(158,59,46,1)";
+    const znak = chyba >= 1 ? "+" : "−";
+    ctx.fillText(odchylka < 0.5 ? "sedí"
+      : znak + cislo(Math.abs(chyba - 1) * 100, 0) + " %",
+      stred, H * 0.42 + rr + 42);
+  });
+  ctx.textAlign = "center"; ctx.fillStyle = "rgba(110,93,70,.75)";
+  ctx.font = "12px 'DM Mono', monospace";
+  ctx.fillText("odchylka od skutečnosti – chyba se řetězem šíří a na konci se umocňuje",
+               W / 2, H - 14);
+}
+
+function prekresli() {
+  const r = retez();
+  el("uhel-v").textContent = cislo(+el("uhel").value, 2) + "°";
+  el("stadion-v").textContent = mezery(Math.round(+el("stadion").value / 0.16))
+    + " stadií = " + mezery(+el("stadion").value) + " km";
+  el("par-v").textContent = cislo(+el("parVenuse").value, 3) + "″";
+  el("uhelS-v").textContent = cislo(+el("uhelSlunce").value, 2) + "′";
+
+  el("v-zeme").textContent = mezery(Math.round(r.obvod)) + " km";
+  el("v-au").textContent = cislo(r.au / 1e6, 2) + " milionu km";
+  el("v-prumer").textContent = cislo(r.prumer / 1e6, 3) + " milionu km";
+  el("v-hmota").textContent = cislo(r.M / 1e30, 3) + " · 10³⁰ kg";
+
+  const chybaM = r.M / SKUTECNE.M;
+  const chybaAu = r.au / SKUTECNE.au;
+  el("aha").textContent = Math.abs(chybaM - 1) < 0.02
+    ? "Řetěz drží. Čtyři měření, z nichž první potřebuje jen tyč a stín, "
+      + "a na konci hmotnost Slunce s přesností na procenta. Nikdo přitom "
+      + "nikam neletěl a nic nezvážil."
+    : "Vzdálenost je vedle o " + cislo(Math.abs(chybaAu - 1) * 100, 0)
+      + " %, ale hmotnost už o " + cislo(Math.abs(chybaM - 1) * 100, 0)
+      + " %. Ve třetím Keplerově zákoně vystupuje třetí mocnina vzdálenosti, "
+      + "takže se chyba nezkopíruje, ale umocní. Proto se o sluneční paralaxu "
+      + "vedly expedice na Tahiti a na Sibiř: byla to nejcennější číslice století.";
+
+  kresli(r);
+}
+
+["uhel", "stadion", "parVenuse", "uhelSlunce"].forEach(
+  id => el(id).addEventListener("input", prekresli));
+el("reset").addEventListener("click", () => {
+  el("uhel").value = 7.2; el("stadion").value = 800;
+  el("parVenuse").value = 8.794; el("uhelSlunce").value = 31.98;
+  prekresli();
+});
+el("cassini").addEventListener("click", () => {
+  // Cassini 1672 z paralaxy Marsu: 9,5″. Aristarchova chyba by byla
+  // dvacetinásobek skutečné hodnoty, tedy 176″, a do posuvníku se nevejde –
+  // proto je popsaná jen v textu.
+  el("parVenuse").value = 9.5;
+  prekresli();
+});
+prekresli();
+</script>
+</body>
+</html>

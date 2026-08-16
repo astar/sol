@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Posuň Měsíc v čase – kdy skončí úplná zatmění | SOL</title>
+<meta name="description" content="Měsíc se vzdaluje o 3,8 cm za rok. Posuň čas dopředu a dozadu a podívej se, jak dlouho ještě zatmění funguje.">
+<link rel="stylesheet" href="../../../assets/kodex.css">
+</head>
+<body>
+
+<a class="zpet" href="../">← SOL · 100 otázek o Slunci</a>
+
+<h1>Posuň Měsíc v čase</h1>
+<p class="podtitul">Žijeme v okně, kdy se kotouče trefují na vlásek. Podívej se, jak úzké to okno je.</p>
+
+<p>Slunce je <strong>400,5krát větší</strong> než Měsíc a shodou okolností
+<strong>389,2krát dál</strong>. Ta shoda není přesná, liší se o necelá tři procenta,
+a právě proto je zatmění někdy úplné a někdy prstencové.</p>
+
+<p>Měsíc se ale vzdaluje. Jeho kotouč na obloze se zmenšuje a jednou bude
+i v nejlepším případě menší než sluneční. Pak už úplné zatmění nenastane nikdy.
+Táhni za čas a uvidíš to okno celé.</p>
+
+<div class="ovladani">
+  <div class="rada">
+    <label for="cas">Čas
+      <span class="hodnota" id="cas-v">dnes</span></label>
+    <input type="range" id="cas" min="-4000" max="2000" step="10" value="0">
+  </div>
+  <div class="rada">
+    <label for="rychlost">Rychlost vzdalování
+      <span class="hodnota" id="rychlost-v">3,8 cm/rok</span></label>
+    <input type="range" id="rychlost" min="1" max="8" step="0.1" value="3.8">
+  </div>
+  <div class="rada" style="display:flex;align-items:flex-end;gap:.6rem;flex-wrap:wrap">
+    <button id="dnes" class="aktiv">Dnes</button>
+    <button id="konec">Skoč na konec úplných zatmění</button>
+    <button id="dino">Doba dinosaurů</button>
+  </div>
+</div>
+
+<canvas id="platno" width="1100" height="400" aria-label="Sluneční a měsíční kotouč vedle sebe v daném čase"></canvas>
+
+<div class="vysledky">
+  <div class="karta"><div class="cislo" id="v-vzdalenost">–</div>
+    <div class="popis">vzdálenost Měsíce (v perigeu)</div></div>
+  <div class="karta"><div class="cislo" id="v-pomer">–</div>
+    <div class="popis">poměr kotoučů v nejlepším případě</div></div>
+  <div class="karta"><div class="cislo" id="v-totalita">–</div>
+    <div class="popis">nejdelší možná totalita</div></div>
+  <div class="karta"><div class="cislo" id="v-verdikt">–</div>
+    <div class="popis">je úplné zatmění možné?</div></div>
+</div>
+
+<div class="aha" id="aha">…</div>
+
+<h2 style="font-weight:500;font-size:1.35rem;margin:2.2rem 0 .6rem">Co se to počítá</h2>
+
+<p>Úplné zatmění nastane, když je úhlový průměr Měsíce větší než sluneční:</p>
+
+<p style="font-family:'DM Mono',monospace;font-size:.95rem;text-align:center;margin:1rem 0">
+D<sub>M</sub> / d<sub>M</sub> &gt; D<sub>☉</sub> / d<sub>☉</sub></p>
+
+<p>Nejpříznivější případ je Měsíc v perigeu (356 500 km) a Země v odsluní
+(152,1 milionu km). Z toho vyjde kritická vzdálenost, nad kterou už úplné
+zatmění nenastane ani tehdy:</p>
+
+<p style="font-family:'DM Mono',monospace;font-size:.95rem;text-align:center;margin:1rem 0">
+d<sub>krit</sub> = D<sub>M</sub> · d<sub>☉,max</sub> / D<sub>☉</sub> ≈ 380 000 km</p>
+
+<p>Dnešní perigeum je 356 500 km, takže máme rezervu asi 23 500 km. Při
+3,8 centimetru za rok to je zhruba <strong>620 milionů let</strong>.</p>
+
+<div class="poznamka">
+Lineární extrapolace je hrubá a v obou směrech lže. Rychlost vzdalování závisí
+na rozložení oceánů, protože slapy potřebují mělká moře, aby se energie ztrácela
+třením. Dnešních 3,8 cm/rok je neobvykle vysoká hodnota; v geologické minulosti
+byla nižší. Přesnější modely dávají závislost ȧ ∝ a<sup>−11/2</sup>, takže Měsíc
+odchází tím pomaleji, čím je dál. Odhad se tím prodlouží a literatura proto uvádí
+600 milionů až přes miliardu let. Zpětná extrapolace lineární rychlostí by
+Měsíc přilepila k Zemi před 1,5 miliardy let, což je nesmysl, a proto se
+minulost čte z rytmitů, tedy z usazenin, ve kterých je zapsaná délka
+dávného přílivového cyklu.
+</div>
+
+<h2 style="font-weight:500;font-size:1.35rem;margin:2.2rem 0 .6rem">Zkus tohle</h2>
+<ul style="padding-left:1.2rem">
+  <li><strong>Doba dinosaurů</strong> – Měsíc byl o pár tisíc kilometrů blíž
+      a jeho kotouč znatelně větší. Úplná zatmění byla delší a běžnější,
+      prstencová vzácnější. Nikdo je ovšem nepozoroval.</li>
+  <li><strong>Skoč na konec</strong> – poměr klesne na jedničku a totalita
+      se zkrátí na nulu. Od té chvíle zbude při každém zatmění prstýnek.
+      Koróna se stane nepozorovatelnou ze Země navždy.</li>
+  <li><strong>Sniž rychlost na 2 cm/rok</strong> – okno se natáhne skoro
+      dvojnásobně. Právě proto se v literatuře čísla tak rozcházejí:
+      nejde o nepřesnost měření, ale o to, že rychlost není konstanta.</li>
+  <li>Všimni si, že <strong>zatmění nekončí</strong>. Končí jen ta úplná.
+      Prstencových bude naopak víc než dnes.</li>
+</ul>
+
+<div class="zdroje">
+  D<sub>☉</sub> = 1 392 000 km, D<sub>M</sub> = 3 474,8 km.
+  Perigeum dnes 356 500 km, odsluní Země 152,1 milionu km.
+  Vzdalování 3,8 cm/rok z laserového měření na koutových zrcátkách
+  Apolla 11, 14, 15 a Lunochodů.<br>
+  Součást <a href="../">SOL – 100 otázek o Slunci</a>. Kód i text volně k použití.
+</div>
+
+<script>
+const D_SLUNCE = 1.392e6;      // km
+const D_MESIC = 3474.8;        // km
+const PERIGEUM_DNES = 356500;  // km
+const D_SLUNCE_MAX = 152.1e6;  // km, odsluní
+const C_KM = 299792.458;
+
+const el = (id) => document.getElementById(id);
+const platno = el("platno"), ctx = platno.getContext("2d");
+
+function cislo(x, d = 2) { return x.toFixed(d).replace(".", ","); }
+function mezery(s) { return String(s).replace(/\B(?=(\d{3})+(?!\d))/g, " "); }
+
+const D_KRIT = D_MESIC * D_SLUNCE_MAX / D_SLUNCE;   // ≈ 380 000 km
+
+function stav(milionLet, cmZaRok) {
+  const perigeum = PERIGEUM_DNES + milionLet * 1e6 * (cmZaRok / 100) / 1000;
+  const uhelMesic = D_MESIC / perigeum;
+  const uhelSlunce = D_SLUNCE / D_SLUNCE_MAX;
+  const pomer = uhelMesic / uhelSlunce;
+
+  // hrubý odhad délky totality: přebytek úhlu × doba přechodu
+  // Měsíc se po obloze posouvá asi o vlastní průměr za hodinu
+  let totalita = 0;
+  if (pomer > 1) {
+    const prebytek = (uhelMesic - uhelSlunce) / uhelMesic;
+    // Kalibrováno na skutečné maximum totality 7 min 32 s (nejdelší možné
+    // zatmění vůbec). S faktorem 2,2 vycházelo 8,06 minuty, což je o půl
+    // minuty víc, než umí příroda.
+    totalita = prebytek * 3600 * 2.058;
+  }
+  const konec = (D_KRIT - perigeum) / (cmZaRok / 100 / 1000) / 1e6;  // milionů let
+  return { perigeum, pomer, totalita, konec, uhelMesic, uhelSlunce };
+}
+
+function kresli(s, milionLet) {
+  const W = platno.width, H = platno.height;
+  ctx.clearRect(0, 0, W, H);
+  const stred = { x: W / 2, y: H * 0.47 };
+  const rSlunce = 110;
+  const rMesic = rSlunce * s.pomer;
+
+  // koróna, jen když je totalita
+  if (s.pomer > 1) {
+    const g = ctx.createRadialGradient(stred.x, stred.y, rMesic,
+                                       stred.x, stred.y, rMesic * 2.4);
+    g.addColorStop(0, "rgba(242,230,204,.55)");
+    g.addColorStop(1, "rgba(242,230,204,0)");
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.arc(stred.x, stred.y, rMesic * 2.4, 0, 7); ctx.fill();
+  }
+
+  // sluneční kotouč
+  ctx.fillStyle = s.pomer > 1 ? "rgba(185,138,47,.35)" : "rgba(185,138,47,.95)";
+  ctx.beginPath(); ctx.arc(stred.x, stred.y, rSlunce, 0, 7); ctx.fill();
+
+  // měsíční kotouč
+  ctx.fillStyle = "#141014";
+  ctx.beginPath(); ctx.arc(stred.x, stred.y, rMesic, 0, 7); ctx.fill();
+  ctx.strokeStyle = "rgba(110,93,70,.7)"; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.arc(stred.x, stred.y, rMesic, 0, 7); ctx.stroke();
+
+  // popisky
+  ctx.textAlign = "center"; ctx.fillStyle = "rgba(110,93,70,.95)";
+  ctx.font = "13px 'DM Mono', monospace";
+  const kdy = milionLet === 0 ? "dnes"
+    : (milionLet > 0 ? "za " + mezery(Math.round(milionLet)) + " milionů let"
+                     : "před " + mezery(Math.round(-milionLet)) + " miliony let");
+  ctx.fillText(kdy, stred.x, H - 44);
+
+  ctx.fillStyle = s.pomer > 1 ? "rgba(63,122,94,1)" : "rgba(158,59,46,1)";
+  ctx.font = "16px 'EB Garamond', Georgia, serif";
+  ctx.fillText(s.pomer > 1 ? "úplné zatmění – koróna je vidět"
+                           : "prstencové – zbude prsten a koróna zmizí",
+               stred.x, H - 18);
+
+  // stupnice poměru vlevo
+  ctx.textAlign = "left"; ctx.font = "12px 'DM Mono', monospace";
+  ctx.fillStyle = "rgba(110,93,70,.9)";
+  ctx.fillText("poměr kotoučů " + cislo(s.pomer, 4), 20, 28);
+  ctx.fillText("perigeum " + mezery(Math.round(s.perigeum)) + " km", 20, 48);
+}
+
+function prekresli() {
+  const t = +el("cas").value;          // miliony let
+  const v = +el("rychlost").value;     // cm/rok
+  const s = stav(t, v);
+
+  el("cas-v").textContent = t === 0 ? "dnes"
+    : (t > 0 ? "za " + mezery(t) + " milionů let"
+             : "před " + mezery(-t) + " miliony let");
+  el("rychlost-v").textContent = cislo(v, 1) + " cm/rok";
+
+  el("v-vzdalenost").textContent = mezery(Math.round(s.perigeum)) + " km";
+  el("v-pomer").textContent = cislo(s.pomer, 4);
+  el("v-totalita").textContent = s.totalita > 0
+    ? cislo(s.totalita / 60, 2) + " minuty" : "žádná";
+  el("v-verdikt").textContent = s.pomer > 1 ? "ano" : "ne";
+
+  const zbyva = s.konec;
+  el("aha").textContent = s.pomer > 1
+    ? "Kotouč Měsíce je o " + cislo((s.pomer - 1) * 100, 1)
+      + " % větší než sluneční, takže Slunce zakryje celé a koróna je vidět. "
+      + "Při téhle rychlosti to vydrží ještě " + mezery(Math.round(zbyva))
+      + " milionů let. Pak už nikdy."
+    : "Kotouč Měsíce je o " + cislo((1 - s.pomer) * 100, 1)
+      + " % menší, takže i v nejlepším případě zbude zářivý prstenec. "
+      + "Koróna se v něm ztratí, protože i procento slunečního kotouče "
+      + "svítí jako desetitisíce Měsíců. Zatmění tu pořád jsou, ale to, "
+      + "kvůli čemu se za nimi jezdí přes půl světa, skončilo.";
+
+  kresli(s, t);
+}
+
+["cas", "rychlost"].forEach(id => el(id).addEventListener("input", prekresli));
+el("dnes").addEventListener("click", () => { el("cas").value = 0; prekresli(); });
+el("dino").addEventListener("click", () => { el("cas").value = -100; prekresli(); });
+el("konec").addEventListener("click", () => {
+  const v = +el("rychlost").value;
+  el("cas").value = Math.round(stav(0, v).konec);
+  prekresli();
+});
+prekresli();
+</script>
+</body>
+</html>

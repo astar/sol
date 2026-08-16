@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kelvin–Helmholtzova nestabilita – co našel DKIST | SOL</title>
+<meta name="description" content="Když po sobě dvě vrstvy plazmatu kloužou, rozhraní se stočí do vln. Magnetické pole to umí zastavit. Tady je vidět kde.">
+<link rel="stylesheet" href="../../../assets/kodex.css">
+</head>
+<body>
+
+<a class="zpet" href="../">← SOL · 100 otázek o Slunci</a>
+
+<h1>Kelvin–Helmholtzova nestabilita</h1>
+<p class="podtitul">Kelvin se u stáří Slunce mýlil. Tahle věc po něm je pojmenovaná právem.</p>
+
+<p>Když po sobě dvě vrstvy tekutiny kloužou různou rychlostí, rozhraní mezi nimi
+nezůstane rovné. Zvlní se a vlny se stočí do závitků, jaké znáš z mraků nad
+horským hřebenem nebo z kouře nad svíčkou.</p>
+
+<p>Na Slunci to funguje taky, jenom je tam navíc <strong>magnetické pole</strong>,
+které se chová jako napnutá struna a vlnění tlumí. Letos ukázal dalekohled
+DKIST, že se to na Slunci děje <strong>úplně všude</strong> a že to míchá plazma
+mnohem víc, než se čekalo.</p>
+
+<div class="ovladani">
+  <div class="rada">
+    <label for="strih">Rozdíl rychlostí vrstev
+      <span class="hodnota" id="strih-v">30 km/s</span></label>
+    <input type="range" id="strih" min="0" max="120" step="1" value="30">
+  </div>
+  <div class="rada">
+    <label for="pole">Magnetické pole podél rozhraní
+      <span class="hodnota" id="pole-v">5 gaussů</span></label>
+    <input type="range" id="pole" min="0" max="60" step="0.5" value="5">
+  </div>
+  <div class="rada">
+    <label for="hustota">Poměr hustot vrstev
+      <span class="hodnota" id="hustota-v">1 : 1</span></label>
+    <input type="range" id="hustota" min="1" max="10" step="0.1" value="1">
+  </div>
+  <div class="rada" style="display:flex;align-items:flex-end;gap:.6rem;flex-wrap:wrap">
+    <button id="dkist" class="aktiv">Podmínky z DKIST</button>
+    <button id="zastav">Utlum polem</button>
+  </div>
+</div>
+
+<canvas id="platno" width="1100" height="400" aria-label="Rozhraní dvou vrstev plazmatu, které se stáčí do vírů, nebo zůstává rovné"></canvas>
+
+<div class="vysledky">
+  <div class="karta"><div class="cislo" id="v-stav">–</div>
+    <div class="popis">chová se rozhraní stabilně?</div></div>
+  <div class="karta"><div class="cislo" id="v-mez">–</div>
+    <div class="popis">kritický rozdíl rychlostí</div></div>
+  <div class="karta"><div class="cislo" id="v-rust">–</div>
+    <div class="popis">jak rychle vlna roste</div></div>
+  <div class="karta"><div class="cislo" id="v-cas">–</div>
+    <div class="popis">za jak dlouho se stočí do závitku</div></div>
+</div>
+
+<div class="aha" id="aha">…</div>
+
+<h2 style="font-weight:500;font-size:1.35rem;margin:2.2rem 0 .6rem">Co se to počítá</h2>
+
+<p>Bez magnetického pole je rozhraní nestabilní vždycky, jakmile po sobě vrstvy
+vůbec kloužou. Pole to změní: siločáry se chovají jako natažené gumy a brání
+tomu, aby se rozhraní ohnulo. Podmínka nestability je</p>
+
+<p style="font-family:'DM Mono',monospace;font-size:.95rem;text-align:center;margin:1rem 0">
+(Δv)² &gt; (B₁² + B₂²) (ρ₁ + ρ₂) / (μ₀ ρ₁ ρ₂)</p>
+
+<p>Vlevo je energie střihu, vpravo magnetické napětí. Když střih vyhraje,
+rozhraní se zvlní a vlna roste exponenciálně s rychlostí</p>
+
+<p style="font-family:'DM Mono',monospace;font-size:.95rem;text-align:center;margin:1rem 0">
+γ = k √( ρ₁ρ₂ (Δv)² / (ρ₁+ρ₂)² − … )</p>
+
+<p>a za několik takových časů se z vlnky stane závitek. Ten pak namíchá materiál
+z obou vrstev dohromady, a právě proto to na Slunci není kosmetika:
+míchání rozhoduje o tom, jak se ven dostává teplo a magnetické pole.</p>
+
+<div class="poznamka">
+Model počítá jednorozměrnou lineární teorii pro ostré rozhraní. Skutečné
+sluneční rozhraní je rozmazané, plazma je stlačitelné, pole není rovnoběžné
+s tokem a celé to je turbulentní. Čísla proto berte jako řádová.
+Pozorovaná rychlost růstu na Slunci navíc odpovídá tomu, že rozhraní jsou
+tenčí, než se čekalo. To je právě to, co bylo na letošním objevu nové:
+ne že nestabilita existuje, ale že je <em>všude</em>.
+</div>
+
+<h2 style="font-weight:500;font-size:1.35rem;margin:2.2rem 0 .6rem">Zkus tohle</h2>
+<ul style="padding-left:1.2rem">
+  <li><strong>Nech pole na nule</strong> – rozhraní se zvlní při jakémkoli
+      rozdílu rychlostí. Bez magnetismu je hydrodynamika bezbranná.</li>
+  <li><strong>Zvedni pole na dvacet gaussů</strong> – vlnění se zastaví,
+      i když vrstvy po sobě jedou padesátkou. Magnetické pole umí plazma
+      „zpevnit“ a přesně tím se sluneční fyzika liší od obyčejné meteorologie.</li>
+  <li><strong>Nastav hustoty 1 : 10</strong> – mez se posune, protože lehká
+      vrstva se rozhýbe snáz. Proto se závitky nejlíp vidí tam, kde se potkává
+      řídká koróna s hustším materiálem protuberance.</li>
+  <li>Všimni si, že <strong>závitky vždycky míchají</strong>. Jakmile jednou
+      vzniknou, materiál z obou stran se promísí a rozhraní přestane být
+      rozhraním. To je ta pointa letošního objevu.</li>
+</ul>
+
+<div class="zdroje">
+  Objev všudypřítomných Kelvinových–Helmholtzových nestabilit na Slunci:
+  Kuridze et al., <em>Ubiquitous Kelvin–Helmholtz instabilities driving plasma
+  mixing on the Sun</em>, Nature (2026), DOI 10.1038/s41586-026-10871-3.
+  Měřeno dalekohledem NSF/NSO/AURA Daniel K. Inouye Solar Telescope,
+  který na Slunci rozliší útvary velké 20 km.<br>
+  Součást <a href="../">SOL – 100 otázek o Slunci</a>. Kód i text volně k použití.
+</div>
+
+<script>
+const MU0 = 4 * Math.PI * 1e-7;
+const RHO0 = 1e-9;              // kg/m³, řádově chromosféra
+const VLNA_KM = 1000;           // vlnová délka poruchy [km]
+
+const el = (id) => document.getElementById(id);
+const platno = el("platno"), ctx = platno.getContext("2d");
+let t0 = performance.now(), anim = null;
+
+function cislo(x, d = 1) { return x.toFixed(d).replace(".", ","); }
+
+function fyzika(dv_kms, B_G, pomerHustot) {
+  const dv = dv_kms * 1000;              // m/s
+  const B = B_G * 1e-4;                  // tesla
+  const r1 = RHO0, r2 = RHO0 * pomerHustot;
+
+  // kritický rozdíl rychlostí: (Δv)² = (B1²+B2²)(ρ1+ρ2)/(μ0 ρ1 ρ2)
+  const dvKrit = Math.sqrt(2 * B * B * (r1 + r2) / (MU0 * r1 * r2));
+
+  const k = 2 * Math.PI / (VLNA_KM * 1000);   // vlnové číslo [1/m]
+  const clen = r1 * r2 * dv * dv / Math.pow(r1 + r2, 2)
+             - 2 * B * B / (MU0 * (r1 + r2));
+  const gamma = clen > 0 ? k * Math.sqrt(clen) : 0;   // 1/s
+  const cas = gamma > 0 ? 1 / gamma : Infinity;       // s
+
+  return { stabilni: dv <= dvKrit, dvKrit: dvKrit / 1000, gamma, cas };
+}
+
+function kresli(f, cas) {
+  const W = platno.width, H = platno.height;
+  ctx.clearRect(0, 0, W, H);
+  const y0 = H / 2;
+
+  // dvě vrstvy
+  ctx.fillStyle = "rgba(185,138,47,.12)";
+  ctx.fillRect(0, 0, W, y0);
+  ctx.fillStyle = "rgba(63,122,94,.10)";
+  ctx.fillRect(0, y0, W, H - y0);
+
+  // amplituda: roste exponenciálně, ale zastropovaná
+  const amp = f.stabilni ? 3
+    : Math.min(58, 3 * Math.exp(Math.min(6, cas * f.gamma * 0.9)));
+  const faze = cas * 1.2;
+
+  ctx.beginPath();
+  for (let x = 0; x <= W; x += 2) {
+    const u = x / W * Math.PI * 6;
+    // s rostoucí amplitudou se sinus deformuje do závitku
+    const zavit = f.stabilni ? 0 : Math.min(1, amp / 58);
+    const y = y0 + amp * Math.sin(u - faze)
+            + zavit * amp * 0.55 * Math.sin(2 * (u - faze) + 1.2);
+    x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  }
+  ctx.strokeStyle = f.stabilni ? "rgba(63,122,94,.95)" : "rgba(158,59,46,.95)";
+  ctx.lineWidth = 2.4;
+  ctx.stroke();
+
+  // siločáry
+  const hustotaCar = Math.round(2 + (+el("pole").value) / 6);
+  ctx.strokeStyle = "rgba(110,93,70,.35)"; ctx.lineWidth = 1;
+  for (let i = 1; i <= hustotaCar; i++) {
+    const yy = y0 - 80 + i * 160 / (hustotaCar + 1);
+    ctx.setLineDash([7, 6]);
+    ctx.beginPath(); ctx.moveTo(0, yy); ctx.lineTo(W, yy); ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  // šipky toku
+  ctx.fillStyle = "rgba(110,93,70,.85)";
+  ctx.font = "13px 'DM Mono', monospace"; ctx.textAlign = "left";
+  ctx.fillText("→ rychlejší vrstva", 20, 28);
+  ctx.textAlign = "right";
+  ctx.fillText("pomalejší vrstva ←", W - 20, H - 18);
+
+  ctx.textAlign = "center";
+  ctx.fillStyle = f.stabilni ? "rgba(63,122,94,1)" : "rgba(158,59,46,1)";
+  ctx.font = "16px 'EB Garamond', Georgia, serif";
+  ctx.fillText(f.stabilni
+    ? "magnetické napětí drží rozhraní rovné"
+    : "rozhraní se stáčí a míchá obě vrstvy dohromady", W / 2, 26);
+}
+
+function prekresli() {
+  const dv = +el("strih").value, B = +el("pole").value, ph = +el("hustota").value;
+  el("strih-v").textContent = dv + " km/s";
+  el("pole-v").textContent = cislo(B, 1) + " gaussů";
+  el("hustota-v").textContent = "1 : " + cislo(ph, 1);
+
+  const f = fyzika(dv, B, ph);
+  el("v-stav").textContent = f.stabilni ? "stabilní" : "nestabilní";
+  el("v-mez").textContent = cislo(f.dvKrit, 1) + " km/s";
+  el("v-rust").textContent = f.gamma > 0 ? cislo(f.gamma, 3) + " za sekundu" : "neroste";
+  el("v-cas").textContent = isFinite(f.cas)
+    ? (f.cas < 90 ? cislo(f.cas, 1) + " s" : cislo(f.cas / 60, 1) + " minuty")
+    : "nikdy";
+
+  el("aha").textContent = f.stabilni
+    ? "Vrstvy po sobě kloužou " + dv + " km/s, ale magnetické pole je silnější "
+      + "než střih: mez je " + cislo(f.dvKrit, 1) + " km/s. Siločáry se chovají "
+      + "jako napnuté struny a rozhraní ohnout nedovolí. Přesně tímhle se plazma "
+      + "liší od obyčejné tekutiny."
+    : "Střih vyhrál nad polem: mez je " + cislo(f.dvKrit, 1) + " km/s a vrstvy "
+      + "jedou " + dv + ". Vlna roste a asi za " + (isFinite(f.cas)
+        ? (f.cas < 90 ? cislo(f.cas, 0) + " sekund" : cislo(f.cas / 60, 1) + " minuty")
+        : "chvíli")
+      + " se stočí do závitku, který obě vrstvy promíchá. Letos se ukázalo, "
+      + "že tohle se na Slunci neděje výjimečně, ale úplně všude.";
+
+  kresli(f, (performance.now() - t0) / 1000);
+}
+
+function smycka() {
+  prekresli();
+  anim = requestAnimationFrame(smycka);
+}
+
+["strih", "pole", "hustota"].forEach(id =>
+  el(id).addEventListener("input", () => { t0 = performance.now(); }));
+el("dkist").addEventListener("click", () => {
+  el("strih").value = 30; el("pole").value = 5; el("hustota").value = 1;
+  t0 = performance.now();
+});
+el("zastav").addEventListener("click", () => {
+  el("pole").value = 40; t0 = performance.now();
+});
+smycka();
+</script>
+</body>
+</html>
