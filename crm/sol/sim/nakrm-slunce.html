@@ -236,20 +236,29 @@ function kresli(v) {
   ctx.fillStyle = "rgba(110,93,70,.85)";
   ctx.fillText("roky, logaritmicky", W / 2, H - 14);
 
-  // milníky
-  MILNIKY.forEach(([roky, popis], i) => {
+  // Milníky. Střídání dvou řádků nestačilo: tři z nich leží mezi 4·10⁹
+  // a 10¹⁰ a popisky se slily do nečitelné kaše. Proto se drží obsazené
+  // úseky a popisek se posouvá dolů, dokud nenajde volno.
+  ctx.font = "12px 'DM Mono', monospace";
+  const obsazene = [];
+  MILNIKY.forEach(([roky, popis]) => {
     const xx = x(roky);
     ctx.strokeStyle = "rgba(63,122,94,.55)";
     ctx.setLineDash([3, 4]);
     ctx.beginPath(); ctx.moveTo(xx, okr.t); ctx.lineTo(xx, H - okr.b); ctx.stroke();
     ctx.setLineDash([]);
+
+    const sir = ctx.measureText(popis).width;
+    let radek = 0;
+    while (obsazene.some(o => o.radek === radek
+                              && xx + 4 < o.do && xx + 4 + sir > o.od)) {
+      radek++;
+    }
+    obsazene.push({ radek, od: xx + 4, do: xx + 4 + sir + 8 });
+
     ctx.fillStyle = "rgba(63,122,94,.95)";
-    ctx.save();
-    ctx.translate(xx + 4, okr.t + 12 + (i % 2) * 18);
     ctx.textAlign = "left";
-    ctx.font = "12px 'DM Mono', monospace";
-    ctx.fillText(popis, 0, 0);
-    ctx.restore();
+    ctx.fillText(popis, xx + 4, okr.t + 12 + radek * 17);
   });
 
   // sloupec výsledku
